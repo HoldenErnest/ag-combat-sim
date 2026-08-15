@@ -5,12 +5,14 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using AdvCore;
 using System;
+using AdvCore.Input;
 
 namespace AdvCombat;
 
 public class Game1 : Core
 {
     private Texture2D _img;
+    private static Controller controller;
 
     private float posx = 0f; // TEMP
 
@@ -21,8 +23,7 @@ public class Game1 : Core
 
     protected override void Initialize()
     {
-        // TODO: Add your initialization logic here
-
+        controller = new Controller();
         base.Initialize();
     }
 
@@ -34,11 +35,11 @@ public class Game1 : Core
     }
 
     protected override void Update(GameTime gameTime)
-    {
+    {   
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
-        // TODO: Add your update logic here
+        controller.Update(gameTime);
 
         posx += 0.1f * gameTime.ElapsedGameTime.Milliseconds;
 
