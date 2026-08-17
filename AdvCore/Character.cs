@@ -7,14 +7,14 @@ using AdvCore.StatCore;
 using AdvCore.UI;
 using AdvCore.Items;
 using Microsoft.Xna.Framework.Graphics;
-using System.Numerics;
+using Microsoft.Xna.Framework;
 
 namespace AdvCore;
 
 public class Character
 {
-    private CharacterModel model;
-    private Controller controls;
+    public CharacterModel model;
+    protected Controller controls;
     private Inventory inventory;
     private StatsManager statsManager;
     private Skillbook skillbook;
@@ -37,13 +37,27 @@ public class Character
         controls = c;
         model = new CharacterModel(0);
     }
+
+
+    // START - IMPORTANT UPDATE FUNCTIONS
+    public void Update(GameTime gameTime)
+    {
+        controls.Update(gameTime);
+        model.Update(gameTime);
+    }
     public void LoadContent()
     {
         model.LoadContent();
     }
-
     public void Draw()
     {
         model.Draw(controls.getPosition(), new Vector2(1,1));
+    }
+    // END -IMPORTANT UPDATE FUNCTIONS
+
+    public Vector2 getPosition()
+    {
+        // returns the world position of this character.
+        return controls.getPosition();
     }
 }

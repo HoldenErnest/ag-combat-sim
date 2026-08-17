@@ -1,27 +1,34 @@
 // Holden Ernest 8/15/2026 -- manages all input for the game. - a static instance of this class is created and updated for each character
 
+using System.Net;
+using AdvCore.Graphics;
 using Microsoft.Xna.Framework;
-using System.Numerics;
 
 namespace AdvCore.Input;
 
 public class Controller {
 
-    private System.Numerics.Vector2 worldPosition = new System.Numerics.Vector2(0,0);
+    protected Vector2 worldPosition = Vector2.Zero;
+    protected Vector2 velocity = Vector2.Zero;
+    protected float maxSpeed = 100f; // TODO: these are all increased with the 'speed' stat
+    protected float accel = 30f;
+    protected float deccel = 12f;
+    protected Character character;
 
-    public Controller() {
+    public Controller(Character c) {
+        character = c;
     }
     
-    public virtual void Update(GameTime gameTime) { // TODO: make this not virtual -- only the called methods should be virtual (all controllers have the same update sequence?)
-        UpdateMovement();
-    }
+    public virtual void Update(GameTime gameTime) {}
 
-    public virtual void UpdateMovement()
+    // TODO: ICE before updating velocity you can change deccel for sliding mechanics
+
+    public void Move(float deltaTime)
     {
-        
+        worldPosition += velocity * deltaTime;
     }
 
-    public System.Numerics.Vector2 getPosition()
+    public Vector2 getPosition()
     {
         // get world position of this controller.
         return worldPosition;

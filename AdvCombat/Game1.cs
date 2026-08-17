@@ -4,18 +4,13 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using AdvCore;
-using System;
-using AdvCore.Input;
-using MonoGame.Extended.Graphics;
+using MonoGame.Extended;
 
 namespace AdvCombat;
 
 public class Game1 : Core
 {
-    private static Controller controller;
     private static Player player;
-
-    private float posx = 0f; // TEMP
 
     public Game1() : base("Adventure Combat", 1280, 720, false)
     {
@@ -25,11 +20,14 @@ public class Game1 : Core
     protected override void Initialize()
     {
         player = new Player();
+
         base.Initialize();
+
     }
 
     protected override void LoadContent()
     {
+        // content loading happens AFTER all init
         player.LoadContent();
         base.LoadContent();
     }
@@ -39,9 +37,7 @@ public class Game1 : Core
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
-        controller.Update(gameTime);
-
-        posx += 0.1f * gameTime.ElapsedGameTime.Milliseconds;
+        player.Update(gameTime);
 
         base.Update(gameTime);
     }
@@ -50,13 +46,18 @@ public class Game1 : Core
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
+        Matrix transformMatrix = camera.GetViewMatrix();
 
         // OPTIMIZE SPRITEBATCH DRAW ORDER: group textures together (all _img go before calling another texture to be drawn)
         // specify source rectanges for spritesheets (TextureAtlas class (dict<animframe 1/"walking sprite", the rectange to draw>))
+        
 
-        SpriteBatch.Begin();
+        SpriteBatch.Begin(transformMatrix: transformMatrix, samplerState: SamplerState.PointClamp);
         
         player.Draw();
+
+        RectangleF rect = new RectangleF(0,0,16,16);
+        SpriteBatch.DrawRectangle(rect, Color.White);
 
         SpriteBatch.End();
 

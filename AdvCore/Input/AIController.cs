@@ -10,11 +10,8 @@ using MonoGame.Extended.Input.InputListeners;
 namespace AdvCore.Input;
 
 public class AIController : Controller {
-    MouseListener mouseListener;
 
-    public AIController()
-    {
-        
+    public AIController(Character c) : base(c) {
     }
     
     public override void Update(GameTime gameTime) {

@@ -2,6 +2,8 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended;
+using MonoGame.Extended.ViewportAdapters;
 
 namespace AdvCore;
 
@@ -13,6 +15,8 @@ public class Core : Game
     /// Gets a reference to the Core instance.
     /// </summary>
     public static Core Instance => s_instance;
+
+    public static OrthographicCamera camera;
 
     /// <summary>
     /// Gets the graphics device manager to control the presentation of graphics.
@@ -87,5 +91,12 @@ public class Core : Game
 
         // Create the sprite batch instance.
         SpriteBatch = new SpriteBatch(GraphicsDevice);
+
+        BoxingViewportAdapter viewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice, 800, 480);
+
+        // Initialize the camera with the viewport adapter
+        camera = new OrthographicCamera(viewportAdapter);
+        camera.MaximumZoom = 10f;
+        camera.MinimumZoom = 1f;
     }
 }

@@ -2,6 +2,7 @@
 
 using System;
 using AdvCore.Input;
+using MonoGame.Extended;
 
 namespace AdvCore;
 
@@ -9,13 +10,13 @@ public class Player : Character
 {
     private static Player player;
 
-    public Player() : base(new PlayerController())
+    public Player() : base()
     {
         if (player != null) {
             throw new InvalidOperationException($"Only a single Player instance can be created");
         }
-
         player = this;
+        controls = new PlayerController(player);
         // TODO: Init Character with everything that the Player needs
         // this can be done in base()
     }
