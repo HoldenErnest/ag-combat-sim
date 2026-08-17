@@ -6,13 +6,14 @@ using Microsoft.Xna.Framework.Input;
 using AdvCore;
 using System;
 using AdvCore.Input;
+using MonoGame.Extended.Graphics;
 
 namespace AdvCombat;
 
 public class Game1 : Core
 {
-    private Texture2D _img;
     private static Controller controller;
+    private static Player player;
 
     private float posx = 0f; // TEMP
 
@@ -23,14 +24,13 @@ public class Game1 : Core
 
     protected override void Initialize()
     {
-        controller = new Controller();
+        player = new Player();
         base.Initialize();
     }
 
     protected override void LoadContent()
     {
-        _img = Content.Load<Texture2D>("img/doge");
-
+        player.LoadContent();
         base.LoadContent();
     }
 
@@ -56,19 +56,7 @@ public class Game1 : Core
 
         SpriteBatch.Begin();
         
-        SpriteBatch.Draw(
-        _img,                      // texture
-        new Vector2(                // position
-            posx,
-            Window.ClientBounds.Height * 0.5f),
-        null,                       // sourceRectangle
-        Color.White,                // color
-        MathHelper.ToRadians(posx),   // rotation
-        new Vector2(_img.Width, _img.Height) * 0.5f,               // origin
-        (posx % 100) / 100,                       // scale
-        SpriteEffects.None,         // effects
-        0.0f                        // layerDepth
-    );
+        player.Draw();
 
         SpriteBatch.End();
 

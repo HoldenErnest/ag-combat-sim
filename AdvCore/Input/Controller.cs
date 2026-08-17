@@ -1,40 +1,30 @@
-// Holden Ernest 8/15/2026 -- manages all input for the game. - a static instance of this class is created and updated from the game initialization
-using System;
-using System.Security.Cryptography;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-using MonoGame.Extended.Input;
-using MonoGame.Extended.Input.InputListeners;
+// Holden Ernest 8/15/2026 -- manages all input for the game. - a static instance of this class is created and updated for each character
 
+using Microsoft.Xna.Framework;
+using System.Numerics;
 
 namespace AdvCore.Input;
 
 public class Controller {
-    MouseListener mouseListener;
+
+    private System.Numerics.Vector2 worldPosition = new System.Numerics.Vector2(0,0);
 
     public Controller() {
-        InitListeners();
     }
     
-    public void Update(GameTime gameTime) {
-        KeyboardExtended.Update();
-        KeyboardStateExtended keyboardState = KeyboardExtended.GetState();
-        MouseExtended.Update();
-        MouseStateExtended mouseState = MouseExtended.GetState();
-        mouseListener.Update(gameTime);
-
-        //Console.WriteLine("mousePOS: " + mouseState.Position.ToString());
-
-        
-
+    public virtual void Update(GameTime gameTime) { // TODO: make this not virtual -- only the called methods should be virtual (all controllers have the same update sequence?)
+        UpdateMovement();
     }
 
-    private void InitListeners() {
-        MouseListenerSettings mls = new MouseListenerSettings{DoubleClickMilliseconds = 200, DragThreshold = 8};
-
-        mouseListener = mls.CreateListener();
-        mouseListener.MouseClicked += (sender, args) => {Console.WriteLine("CLICKED MOUSE");};
+    public virtual void UpdateMovement()
+    {
         
+    }
+
+    public System.Numerics.Vector2 getPosition()
+    {
+        // get world position of this controller.
+        return worldPosition;
     }
 
 }
