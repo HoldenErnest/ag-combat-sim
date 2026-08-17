@@ -4,9 +4,10 @@ A stepping stone for my Adventure Game project.
 As I say in [my Docs](https://github.com/HoldenErnest/Adv-docs), this is essentially for developing the core game system (which revolves with modular components around the combat system).
 
 
-## High Level Technologies
+## Technologies/Libraries
 
- - MonoGame Lightweight Framework -- So far the [Docs](https://docs.monogame.net/articles/tutorials/building_2d_games/03_the_game1_file/index.html) are pretty helpful
+ - MonoGame Lightweight Framework -- Their [Docs](https://docs.monogame.net/articles/tutorials/building_2d_games/03_the_game1_file/index.html) are very helpful
+    - MonoGame.Extended - [Docs](https://www.monogameextended.net/docs/about/introduction/)
 
 ## Goals
 
