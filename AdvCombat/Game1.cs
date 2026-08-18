@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using AdvCore;
 using MonoGame.Extended;
+using AdvCore.Data;
 
 namespace AdvCombat;
 
@@ -29,6 +30,7 @@ public class Game1 : Core
     {
         // content loading happens AFTER all init
         player.LoadContent();
+        Database.LoadLists();
         base.LoadContent();
     }
 

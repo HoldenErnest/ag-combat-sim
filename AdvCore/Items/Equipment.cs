@@ -1,5 +1,6 @@
 // Holden Ernest - 8/16/2026 - This is an equip.
 
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using AdvCore.Skills;
 using AdvCore.StatCore;
@@ -9,19 +10,33 @@ namespace AdvCore.Items;
 
 public class Equipment : Item
 {
-    private bool equipped;
-    private int reforgeCount;
-    private string gearType;
-    private Skill[] skills; // TODO -- these might need to be split up on load. Just store on file stuff
-    private Stats statIncrease;
+    public static HashSet<string> gearTypes = new HashSet<string> {
+        "weapon",
+        "helmet",
+        "ring",
+        "chest",
+        "pants",
+        "boots"
+        };
 
-    private SpriteSheet spriteSheet; // generated on Load from ID // TODO
 
+    // Dynamic properties (SAVABLE) (loaded from save state (default from lookup))
+    public bool equipped = false;
+    public int reforgeCount; // increases the stats on load.
 
-    public Equipment() {}
+    // Immutable properties (loaded from lookup)
+    public string gearType = "";
+    public int[] skills;
+    public Stats stats;
+    public string textureFile;
+
     public Equipment(int id) : base(id)
     {
         
+    }
+
+    private bool VerifyGearType(string s) {
+        return gearTypes.Contains(s);
     }
 
     private protected void Load()

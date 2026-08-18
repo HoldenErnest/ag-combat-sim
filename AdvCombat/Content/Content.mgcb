@@ -13,6 +13,12 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Data/equips.json
+/copy:Data/equips.json
+
+#begin Data/items.json
+/copy:Data/items.json
+
 #begin img/doge.png
 /importer:TextureImporter
 /processor:TextureProcessor
