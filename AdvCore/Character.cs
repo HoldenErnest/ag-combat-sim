@@ -11,11 +11,11 @@ using Microsoft.Xna.Framework;
 
 namespace AdvCore;
 
-public class Character
+public class Character : GameObject
 {
     public CharacterModel model;
     protected Controller controls;
-    private Inventory inventory;
+    protected Inventory inventory;
     private StatsManager statsManager;
     private Skillbook skillbook;
     private CharacterUI ui;
@@ -26,16 +26,24 @@ public class Character
     private string title;
     private string desc;
 
-
+    public static Character FromSaveFile(int id) {
+        // generate a new Character loaded with its save state.
+        //TODO CharacterBuilder.cs
+        Character car = new Character();
+        car.inventory = Inventory.FromSaveFile(id);
+        return car;
+    }
 
     public Character()
     {
         model = new CharacterModel(0);
+        inventory = new Inventory();
     }
     public Character(Controller c)
     {
         controls = c;
         model = new CharacterModel(0);
+        inventory = new Inventory();
     }
 
 
@@ -52,6 +60,10 @@ public class Character
     public void Draw()
     {
         model.Draw(controls.getPosition(), new Vector2(1,1));
+    }
+    public override void Destroy() {
+        //! TODO destroy
+        base.Destroy();
     }
     // END -IMPORTANT UPDATE FUNCTIONS
 

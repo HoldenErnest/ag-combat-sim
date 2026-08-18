@@ -20,4 +20,7 @@ public class Player : Character
         // TODO: Init Character with everything that the Player needs
         // this can be done in base()
     }
+    public override void Destroy() {
+        Console.WriteLine("ERROR: Attempted to destroy Player object, that makes me sad");
+    }
 }

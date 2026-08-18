@@ -92,7 +92,7 @@ public class CharacterModel
 
         SetupAnims();
         sprite = new AnimatedSprite(bodySheet, "idle-runDown");
-        sprite.OriginNormalized = new Vector2(0.5f,0.5f);
+        sprite.OriginNormalized = new Vector2(0.5f,0.75f);
         
     }
     // END - IMPORTANT UPDATE FUNCTIONS
@@ -109,14 +109,15 @@ public class CharacterModel
         // so for now at least, these indicies can be retrieved with math
         bodySheet.DefineAnimation(animName, builder => {
             builder.IsLooping(true)
-                .AddFrame(0 + (rowIndex * 8), duration)
                 .AddFrame(1 + (rowIndex * 8), duration)
                 .AddFrame(2 + (rowIndex * 8), duration)
                 .AddFrame(1 + (rowIndex * 8), duration)
                 .AddFrame(0 + (rowIndex * 8), duration)
                 .AddFrame(3 + (rowIndex * 8), duration)
                 .AddFrame(4 + (rowIndex * 8), duration)
-                .AddFrame(3 + (rowIndex * 8), duration);
+                .AddFrame(3 + (rowIndex * 8), duration)
+                .AddFrame(0 + (rowIndex * 8), duration);
+
         });
         bodySheet.DefineAnimation("idle-" + animName, builder => {
             builder.IsLooping(false)
