@@ -17,5 +17,6 @@ public static class Database
     public static void LoadLists() {
         // Load any lookup dicts
         ItemBuilder.LoadList();
+        EquipBuilder.LoadList();
     }
 }

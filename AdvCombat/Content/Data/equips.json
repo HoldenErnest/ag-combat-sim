@@ -1,3 +1,6 @@
-{"items": [
-    {"ID": 0, "name": "Unnamed Item", "desc": "Item missing..", "iconFile": "blankItem"}
+{"equips": [
+    {"ID": 0, "name": "Unnamed Equip", "desc": "Equipment missing..", "iconFile": "blankEquip",
+    "gearType": ""},
+    {"ID": 1, "name": "Stick", "desc": "a pointed stick..", "iconFile": "stickEquip",
+    "gearType": "weapon", "skills": [1], "stats": {"constitution": 2}, "textureFile": "stickTexture"}
 ]}

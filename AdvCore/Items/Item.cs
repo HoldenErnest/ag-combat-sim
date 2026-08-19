@@ -3,7 +3,7 @@
 namespace AdvCore.Items;
 
 public class Item {
-    public static readonly Item NullItem = new Item(-1);
+    public static readonly Item NullItem = new Item(0);
 
     public readonly int ID;
 
@@ -13,10 +13,14 @@ public class Item {
     public float dropChance = 1f;
 
     // Immutable properties (loaded from lookup)
-    public string desc;
-    public string iconFile;
+    public readonly string desc;
+    public readonly string iconFile;
     
     public Item(int id) {
         ID = id;
+    }
+
+    public override string ToString() {
+        return "[" + this.GetType() + "] " + ID + ": " + name;
     }
 }

@@ -1,5 +1,6 @@
 // Holden Ernest - 8/16/2026 - This is an equip.
 
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using AdvCore.Skills;
@@ -10,7 +11,8 @@ namespace AdvCore.Items;
 
 public class Equipment : Item
 {
-    public static HashSet<string> gearTypes = new HashSet<string> {
+    public static readonly Equipment NullEquip = new Equipment(0);
+    public static readonly HashSet<string> gearTypes = new HashSet<string> {
         "weapon",
         "helmet",
         "ring",
@@ -19,16 +21,15 @@ public class Equipment : Item
         "boots"
         };
 
-
     // Dynamic properties (SAVABLE) (loaded from save state (default from lookup))
     public bool equipped = false;
-    public int reforgeCount; // increases the stats on load.
+    public int reforgeCount = 0; // increases the stats on load.
 
     // Immutable properties (loaded from lookup)
-    public string gearType = "";
-    public int[] skills;
-    public Stats stats;
-    public string textureFile;
+    public readonly string gearType = "";
+    public readonly int[] skills;
+    public readonly Stats stats;
+    public readonly string textureFile;
 
     public Equipment(int id) : base(id)
     {
@@ -39,9 +40,7 @@ public class Equipment : Item
         return gearTypes.Contains(s);
     }
 
-    private protected void Load()
-    {
-        // TODO: load from the database using the ID
-        //spriteSheet = new SpriteSheet("equip/shirt1");
+    public override string ToString() {
+        return base.ToString() + ". TYPE: " + gearType;
     }
 }

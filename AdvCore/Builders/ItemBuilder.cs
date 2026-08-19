@@ -10,7 +10,7 @@ namespace AdvCore.Builders;
 
 public class ItemBuilder {
     
-    private static readonly string listFile = "";
+    private static readonly string listFile = "Data/items.json";
     private static Dictionary<int,Item> dict = [];
 
     public ItemBuilder() {
@@ -20,12 +20,12 @@ public class ItemBuilder {
     }
 
     public Item FromID(int id) {
-        if (dict.ContainsKey(id)) return Item.NullItem;
+        if (id == 0 || dict.ContainsKey(id)) return Item.NullItem;
 
         return dict[id];
     }
     public static void LoadList() {
         // loaded from Database
-        Core.Content.Load<Character>(listFile);
+        //Core.Content.Load<Character>(listFile);
     }
 }
