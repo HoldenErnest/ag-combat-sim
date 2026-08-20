@@ -1,6 +1,12 @@
 {"equips": [
     {"ID": 0, "name": "Unnamed Equip", "desc": "Equipment missing..", "iconFile": "blankEquip",
-    "gearType": ""},
+    "gearType": "unknownGearType"},
     {"ID": 1, "name": "Stick", "desc": "a pointed stick..", "iconFile": "stickEquip",
-    "gearType": "weapon", "skills": [1], "stats": {"constitution": 2}, "textureFile": "stickTexture"}
+    "gearType": "weapon", "skills": [1], "stats": {"constitution": 2}, "textureFile": "stick"},
+    {"ID": 2, "name": "Shirt", "desc": "a grey shirt..", "iconFile": "shirtEquip",
+    "gearType": "chest", "skills": [2], "stats": {"constitution": 5}, "textureFile": "grey_shirt"},
+    {"ID": 3, "name": "Blue Pants", "desc": "a classy look for the average bum", "iconFile": "pantsEquip",
+    "gearType": "pants", "skills": [3], "stats": {"constitution": 1}, "textureFile": "blue_pants"},
+    {"ID": 4, "name": "Red Cap", "desc": "ballcap is kinda cool", "iconFile": "hatEquip",
+    "gearType": "helmet", "skills": [1,2], "stats": {"constitution": 3}, "textureFile": "red_cap"}
 ]}

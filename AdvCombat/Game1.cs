@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework.Input;
 using AdvCore;
 using MonoGame.Extended;
 using AdvCore.Data;
+using System;
+using System.Diagnostics;
 
 namespace AdvCombat;
 
@@ -20,17 +22,19 @@ public class Game1 : Core
 
     protected override void Initialize()
     {
-        player = new Player();
-
         base.Initialize();
 
     }
 
     protected override void LoadContent()
     {
+        Debug.Assert(GraphicsDevice != null);
+
         // content loading happens AFTER all init
-        player.LoadContent();
         Database.LoadLists();
+        player = new Player();
+        player.LoadContent();
+
         base.LoadContent();
     }
 
@@ -46,6 +50,9 @@ public class Game1 : Core
 
     protected override void Draw(GameTime gameTime)
     {
+
+        Debug.Assert(GraphicsDevice != null);
+
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
         Matrix transformMatrix = camera.GetViewMatrix();

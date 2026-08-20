@@ -1,5 +1,7 @@
 // Holden Ernest - 8/16/2026 - This is an item
 
+using System.Text.Json.Serialization;
+
 namespace AdvCore.Items;
 
 public class Item {
@@ -13,14 +15,15 @@ public class Item {
     public float dropChance = 1f;
 
     // Immutable properties (loaded from lookup)
-    public readonly string desc;
-    public readonly string iconFile;
+    public string desc {get; init; }
+    public string iconFile {get; init; }
     
     public Item(int id) {
         ID = id;
     }
 
     public override string ToString() {
-        return "[" + this.GetType() + "] " + ID + ": " + name;
+        string s = $"ID: {ID}, name: {name}, desc: {desc}, iconFile: {iconFile}";
+        return "[" + this.GetType() + "] " + s;
     }
 }

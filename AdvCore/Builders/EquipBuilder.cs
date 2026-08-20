@@ -19,9 +19,13 @@ public class EquipBuilder {
         }
     }
 
-    public Equipment FromID(int id) {
-        if (id == 0 || dict.ContainsKey(id)) return Equipment.NullEquip;
-
+    public static Equipment FromID(int id) {
+        if (id == 0 || !dict.ContainsKey(id)) return Equipment.NullEquip;
+        if (dict.Count < 1) {
+            throw new Exception("Item list has not been loaded before attempting to build");
+        }
+        Console.WriteLine("EQUIP PULLED: " + dict[id]);
+        
         return dict[id];
     }
     public static void LoadList() {

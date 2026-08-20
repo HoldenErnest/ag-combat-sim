@@ -3,6 +3,9 @@
 // Add various methods to setup scenarios for different Sprites.
 
 using System;
+using System.Linq;
+using AdvCore.Builders;
+using AdvCore.Items;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
@@ -13,13 +16,40 @@ namespace AdvCore.Graphics;
 public class CharacterModel
 {
     private AnimatedSprite sprite; // current sprite to be drawn (this can be an animated sprite)
-    private SpriteSheet bodySheet;
+    private SpriteSheet spriteSheet;
     private TimeSpan duration = TimeSpan.FromSeconds(0.1f); // this can be updated based on player speed.
 
     private string textureFile = "HumanMale1";
+    private Texture2D bodyTexture;
+    private Texture2D fullTexture;
+    private string[] equipTexFiles;
 
-    public CharacterModel(int id) {
-        
+    public CharacterModel() {
+         // TODO: use texture name instead of index to get texture;
+    }
+
+
+    public void UpdateEquipFiles(string[] eTexFiles) {
+        equipTexFiles = eTexFiles;
+        // TODO: if it is completely loaded then you can update textureAtlas
+    }
+
+    private void UpdateTextureAtlas() {
+        // these equips come in order of drawlayer (determined in Equipment)
+        Console.WriteLine(" UPDATING THE TEXTURE ATLAS");
+        Color[] data = new Color[bodyTexture.Width * bodyTexture.Height];
+        fullTexture = bodyTexture;
+        // TODO make this async? so game doesnt freeze but might take a second to udpate texture
+        foreach (string texFile in equipTexFiles.Reverse()) {
+            // combine fullTexture with each e texture in order
+            if (texFile is null) continue;
+            string fullFilePath = $"SpriteSheets/Equips/{texFile}";
+            Texture2D temp = Core.Content.Load<Texture2D>(fullFilePath);
+            fullTexture = TexMod.CombineTex2D(fullTexture, temp);
+        }
+        // update the spritesheet(which is currently in use)
+        fullTexture.GetData(data);
+        spriteSheet.TextureAtlas.Texture.SetData(data);
     }
 
     public void UpdateMovement(Vector2 prevInputs, Vector2 curInputs) {
@@ -84,16 +114,15 @@ public class CharacterModel
     }
     public void LoadContent() {
         string fullFilePath = $"SpriteSheets/CharacterBase/{textureFile}";
-        Texture2D tex = Core.Content.Load<Texture2D>(fullFilePath);
+        bodyTexture = Core.Content.Load<Texture2D>(fullFilePath);
 
-        Texture2DAtlas atlas = Texture2DAtlas.Create(fullFilePath, tex, 32, 32);
+        Texture2DAtlas atlas = Texture2DAtlas.Create(fullFilePath, bodyTexture, 32, 32);
 
-        bodySheet = new SpriteSheet(fullFilePath, atlas);
-
+        spriteSheet = new SpriteSheet(fullFilePath, atlas);
         SetupAnims();
-        sprite = new AnimatedSprite(bodySheet, "idle-runDown");
+        sprite = new AnimatedSprite(spriteSheet, "idle-runDown");
         sprite.OriginNormalized = new Vector2(0.5f,0.75f);
-        
+        UpdateTextureAtlas();
     }
     // END - IMPORTANT UPDATE FUNCTIONS
 
@@ -107,7 +136,7 @@ public class CharacterModel
     private void SetupAnim(string animName, int rowIndex) {
         // the spritesheets are setup as an 8x8 grid of 32x32 sprites
         // so for now at least, these indicies can be retrieved with math
-        bodySheet.DefineAnimation(animName, builder => {
+        spriteSheet.DefineAnimation(animName, builder => {
             builder.IsLooping(true)
                 .AddFrame(1 + (rowIndex * 8), duration)
                 .AddFrame(2 + (rowIndex * 8), duration)
@@ -119,7 +148,7 @@ public class CharacterModel
                 .AddFrame(0 + (rowIndex * 8), duration);
 
         });
-        bodySheet.DefineAnimation("idle-" + animName, builder => {
+        spriteSheet.DefineAnimation("idle-" + animName, builder => {
             builder.IsLooping(false)
                 .AddFrame(0 + (rowIndex * 8), TimeSpan.FromSeconds(0f));
         });

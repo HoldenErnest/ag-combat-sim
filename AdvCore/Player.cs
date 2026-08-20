@@ -10,7 +10,7 @@ public class Player : Character
 {
     private static Player player;
 
-    public Player() : base()
+    public Player() : base(0)
     {
         if (player != null) {
             throw new InvalidOperationException($"Only a single Player instance can be created");

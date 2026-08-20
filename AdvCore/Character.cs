@@ -21,6 +21,7 @@ public class Character : GameObject
     private CharacterUI ui;
     private HealthManager healthManager;
 
+    public readonly int ID;
     private bool savable;
     private string name;
     private string title;
@@ -29,21 +30,17 @@ public class Character : GameObject
     public static Character FromSaveFile(int id) {
         // generate a new Character loaded with its save state.
         //TODO CharacterBuilder.cs
-        Character car = new Character();
+        Character car = new Character(id);
         car.inventory = Inventory.FromSaveFile(id);
+        car.inventory.SetupUser(car);
         return car;
     }
 
-    public Character()
+    public Character(int id)
     {
-        model = new CharacterModel(0);
-        inventory = new Inventory();
-    }
-    public Character(Controller c)
-    {
-        controls = c;
-        model = new CharacterModel(0);
-        inventory = new Inventory();
+        model = new CharacterModel();
+        inventory = Inventory.FromSaveFile(id);
+        inventory.SetupUser(this);
     }
 
 
