@@ -8,6 +8,7 @@ using AdvCore.UI;
 using AdvCore.Items;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using AdvCore.UI.Components;
 
 namespace AdvCore;
 
@@ -19,6 +20,9 @@ public class Character : GameObject
     private StatsManager statsManager;
     private Skillbook skillbook;
     private HealthManager healthManager;
+
+    private HealthBar healthBarTest; // tODO move to UI manager?
+
 
     public readonly int ID;
     private bool savable;
@@ -40,6 +44,10 @@ public class Character : GameObject
         model = new CharacterModel();
         inventory = Inventory.FromSaveFile(id);
         inventory.SetupUser(this);
+
+        
+        healthBarTest = new HealthBar(); // TODO: move to UI Manager?
+        Core.GumUI.Root.AddChild(healthBarTest);
     }
 
 
@@ -48,6 +56,11 @@ public class Character : GameObject
     {
         controls.Update(gameTime);
         model.Update(gameTime);
+
+        // TODO -- temp... also, update UI
+        Vector2 screenCoords = Core.camera.WorldToScreen(getPosition());
+        healthBarTest.X = screenCoords.X;
+        healthBarTest.Y = screenCoords.Y;
     }
     public void LoadContent()
     {

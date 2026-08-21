@@ -3,6 +3,9 @@
   <Name>MainScreen</Name>
   <State>
     <Name>Default</Name>
+    <Variable Type="bool" Name="HealthBarInstance.Visible" SetsValue="true">
+      <Value xsi:type="xsd:boolean">true</Value>
+    </Variable>
     <Variable Type="float" Name="HealthBarInstance.X" SetsValue="true">
       <Value xsi:type="xsd:float">222</Value>
     </Variable>

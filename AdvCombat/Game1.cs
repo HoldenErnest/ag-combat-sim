@@ -11,6 +11,7 @@ using System;
 using System.Diagnostics;
 using MonoGameAndGum.Renderables;
 using Gum.Forms.Controls;
+using AdvCore.UI.Components;
 
 
 namespace AdvCombat;
@@ -27,9 +28,10 @@ public class Game1 : Core
 
     protected override void Initialize()
     {
+        GumUI.Initialize(this, "GumUI/AdvUI.gumx");
+
         base.Initialize();
 
-        GumUI.Initialize(this, "GumUI/AdvUI.gumx");
         ShapeRenderer.Self.Initialize(); // Recommended, optional: shape fill/gradient/shadow
         Gum.Wireframe.CustomSetPropertyOnRenderable.InMemoryFontCreator =
             new KernSmith.Gum.KernSmithFontCreator(GraphicsDevice);
