@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScreenSave xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>MainScreen</Name>
+  <State>
+    <Name>Default</Name>
+    <Variable Type="float" Name="HealthBarInstance.X" SetsValue="true">
+      <Value xsi:type="xsd:float">222</Value>
+    </Variable>
+    <Variable Type="float" Name="HealthBarInstance.Y" SetsValue="true">
+      <Value xsi:type="xsd:float">142</Value>
+    </Variable>
+    <Variable Type="float" Name="SpriteInstance.Height" SetsValue="true">
+      <Value xsi:type="xsd:float">100.13325</Value>
+    </Variable>
+    <Variable Type="DimensionUnitType" Name="SpriteInstance.HeightUnits" SetsValue="true">
+      <Value xsi:type="xsd:int">6</Value>
+    </Variable>
+    <Variable IsFile="true" Type="string" Name="SpriteInstance.SourceFile" SetsValue="true">
+      <Value xsi:type="xsd:string">..\img\doge.png</Value>
+    </Variable>
+    <Variable Type="float" Name="SpriteInstance.Width" SetsValue="true">
+      <Value xsi:type="xsd:float">109.578476</Value>
+    </Variable>
+    <Variable Type="DimensionUnitType" Name="SpriteInstance.WidthUnits" SetsValue="true">
+      <Value xsi:type="xsd:int">6</Value>
+    </Variable>
+    <Variable Type="float" Name="SpriteInstance.X" SetsValue="true">
+      <Value xsi:type="xsd:float">229</Value>
+    </Variable>
+    <Variable Type="HorizontalAlignment" Name="SpriteInstance.XOrigin" SetsValue="true">
+      <Value xsi:type="xsd:int">1</Value>
+    </Variable>
+    <Variable Type="PositionUnitType" Name="SpriteInstance.XUnits" SetsValue="true">
+      <Value xsi:type="xsd:int">6</Value>
+    </Variable>
+    <Variable Type="float" Name="SpriteInstance.Y" SetsValue="true">
+      <Value xsi:type="xsd:float">-109</Value>
+    </Variable>
+    <Variable Type="VerticalAlignment" Name="SpriteInstance.YOrigin" SetsValue="true">
+      <Value xsi:type="xsd:int">1</Value>
+    </Variable>
+    <Variable Type="PositionUnitType" Name="SpriteInstance.YUnits" SetsValue="true">
+      <Value xsi:type="xsd:int">7</Value>
+    </Variable>
+    <Variable Type="float" Name="TextInstance.Height" SetsValue="true">
+      <Value xsi:type="xsd:float">40</Value>
+    </Variable>
+    <Variable Type="HorizontalAlignment" Name="TextInstance.HorizontalAlignment" SetsValue="true">
+      <Value xsi:type="xsd:int">1</Value>
+    </Variable>
+    <Variable Type="string" Name="TextInstance.Text" SetsValue="true">
+      <Value xsi:type="xsd:string">Testing</Value>
+    </Variable>
+    <Variable Type="VerticalAlignment" Name="TextInstance.VerticalAlignment" SetsValue="true">
+      <Value xsi:type="xsd:int">0</Value>
+    </Variable>
+    <Variable Type="float" Name="TextInstance.Width" SetsValue="true">
+      <Value xsi:type="xsd:float">218</Value>
+    </Variable>
+    <Variable Type="float" Name="TextInstance.X" SetsValue="true">
+      <Value xsi:type="xsd:float">0</Value>
+    </Variable>
+    <Variable Type="HorizontalAlignment" Name="TextInstance.XOrigin" SetsValue="true">
+      <Value xsi:type="xsd:int">1</Value>
+    </Variable>
+    <Variable Type="PositionUnitType" Name="TextInstance.XUnits" SetsValue="true">
+      <Value xsi:type="xsd:int">6</Value>
+    </Variable>
+    <Variable Type="float" Name="TextInstance.Y" SetsValue="true">
+      <Value xsi:type="xsd:float">36</Value>
+    </Variable>
+    <Variable Type="VerticalAlignment" Name="TextInstance.YOrigin" SetsValue="true">
+      <Value xsi:type="xsd:int">0</Value>
+    </Variable>
+    <Variable Type="PositionUnitType" Name="TextInstance.YUnits" SetsValue="true">
+      <Value xsi:type="xsd:int">1</Value>
+    </Variable>
+  </State>
+  <Instance Name="TextInstance" BaseType="Text" />
+  <Instance Name="SpriteInstance" BaseType="Sprite" />
+  <Instance Name="HealthBarInstance" BaseType="HealthBar" />
+  <Behaviors />
+</ScreenSave>

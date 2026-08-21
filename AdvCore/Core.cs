@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using MonoGame.Extended.ViewportAdapters;
+using Gum;
+using Gum.Forms;
+using Gum.Forms.Controls;
 
 namespace AdvCore;
 
@@ -17,6 +20,7 @@ public class Core : Game
     public static Core Instance => s_instance;
 
     public static OrthographicCamera camera;
+    public static GumService GumUI => GumService.Default;
 
     /// <summary>
     /// Gets the graphics device manager to control the presentation of graphics.

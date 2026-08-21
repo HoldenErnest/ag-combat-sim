@@ -18,7 +18,6 @@ public class Character : GameObject
     protected Inventory inventory;
     private StatsManager statsManager;
     private Skillbook skillbook;
-    private CharacterUI ui;
     private HealthManager healthManager;
 
     public readonly int ID;

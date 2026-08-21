@@ -63,3 +63,9 @@ monodroid*.msi
 *.VC.opendb
 
 artifacts/
+
+# Gum - user-specific settings (expanded tree nodes)
+*.user.setj
+
+# Gum - transient event log
+**/EventExport/gum_events.json

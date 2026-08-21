@@ -6,14 +6,19 @@ using Microsoft.Xna.Framework.Input;
 using AdvCore;
 using MonoGame.Extended;
 using AdvCore.Data;
+using AdvCore.UI.Screens;
 using System;
 using System.Diagnostics;
+using MonoGameAndGum.Renderables;
+using Gum.Forms.Controls;
+
 
 namespace AdvCombat;
 
 public class Game1 : Core
 {
     private static Player player;
+    private static MainScreen mainScreen;
 
     public Game1() : base("Adventure Combat", 1280, 720, false)
     {
@@ -23,6 +28,14 @@ public class Game1 : Core
     protected override void Initialize()
     {
         base.Initialize();
+
+        GumUI.Initialize(this, "GumUI/AdvUI.gumx");
+        ShapeRenderer.Self.Initialize(); // Recommended, optional: shape fill/gradient/shadow
+        Gum.Wireframe.CustomSetPropertyOnRenderable.InMemoryFontCreator =
+            new KernSmith.Gum.KernSmithFontCreator(GraphicsDevice);
+
+        mainScreen = new MainScreen();
+        GumUI.Root.AddChild(mainScreen);
 
     }
 
@@ -45,6 +58,7 @@ public class Game1 : Core
 
         player.Update(gameTime);
 
+        GumUI.Update(gameTime);
         base.Update(gameTime);
     }
 
@@ -70,6 +84,7 @@ public class Game1 : Core
 
         SpriteBatch.End();
 
+        GumUI.Draw();
         base.Draw(gameTime);
     }
 }

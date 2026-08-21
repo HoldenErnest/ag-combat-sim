@@ -8,7 +8,8 @@ As I say in [my Docs](https://github.com/HoldenErnest/Adv-docs), this is essenti
 
  - MonoGame Lightweight Framework -- Their [Docs](https://docs.monogame.net/articles/tutorials/building_2d_games/03_the_game1_file/index.html) are very helpful
     - MonoGame.Extended - [Docs](https://www.monogameextended.net/docs/about/introduction/)
- - Gum UI
+ - Gum UI [Docs](https://docs.flatredball.com/gum/code/getting-started/setup/adding-initializing-gum/monogame-kni-fna)
+    - Gum Editor -- project files are stored under Content/GumUI. [SetupDocs](https://docs.flatredball.com/gum/code/getting-started/tutorials/gum-project-forms-tutorial/setup#visual-studio-code)
 
 ## Goals
 

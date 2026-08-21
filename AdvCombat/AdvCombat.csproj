@@ -32,4 +32,9 @@
   <ItemGroup>
     <ProjectReference Include="..\AdvCore\AdvCore.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="Content\GumUI\**\*.*">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+</ItemGroup>
 </Project>
