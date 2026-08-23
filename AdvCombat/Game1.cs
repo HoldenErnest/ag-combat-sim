@@ -12,6 +12,7 @@ using System.Diagnostics;
 using MonoGameAndGum.Renderables;
 using Gum.Forms.Controls;
 using AdvCore.UI.Components;
+using AdvCore.Chat;
 
 
 namespace AdvCombat;
@@ -37,6 +38,7 @@ public class Game1 : Core
             new KernSmith.Gum.KernSmithFontCreator(GraphicsDevice);
 
         mainScreen = new MainScreen();
+        chat = new ChatManager(mainScreen.ChatInterfaceInstance);
         GumUI.Root.AddChild(mainScreen);
 
     }

@@ -1,3 +1,7 @@
 [*.cs]
 # Keep opening braces on the same line for all elements
 csharp_new_line_before_open_brace = none
+
+[*.Generated.cs]
+generated_code = true
+dotnet_analyzer_diagnostic.severity = none

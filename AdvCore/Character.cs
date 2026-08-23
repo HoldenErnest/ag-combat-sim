@@ -24,9 +24,9 @@ public class Character : GameObject
 
     public readonly int ID;
     private bool savable;
-    private string name;
-    private string title;
-    private string desc;
+    public string name {get; init; }
+    public string title {get; init; }
+    public string desc {get; init; }
 
     public static Character FromSaveFile(int id) {
         // generate a new Character loaded with its save state.
@@ -46,6 +46,13 @@ public class Character : GameObject
         healthManager = new HealthManager(this);
     }
 
+    // START - basic methods
+    public Vector2 getPosition()
+    {
+        // returns the world position of this character.
+        return controls.getPosition();
+    }
+    // END - basic methods
 
     // START - IMPORTANT UPDATE FUNCTIONS
     public void Update(GameTime gameTime)
@@ -68,16 +75,10 @@ public class Character : GameObject
     }
     // END -IMPORTANT UPDATE FUNCTIONS
 
-    public Vector2 getPosition()
-    {
-        // returns the world position of this character.
-        return controls.getPosition();
-    }
-
-
 
     // START DAMAGE
     public void TakeDamage(Character caster, int damage) {
         healthManager.TakeDamage(caster, damage);
     }
+    // END DAMAGE
 }

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ComponentSave xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>Chat/ChatInterface</Name>
+  <BaseType>Container</BaseType>
+  <State>
+    <Name>Default</Name>
+    <Variable Type="FocusCatagory" Name="FocusCatagoryState" SetsValue="true" />
+    <Variable Type="float" Name="Height" SetsValue="true">
+      <Value xsi:type="xsd:float">184</Value>
+    </Variable>
+    <Variable Type="float" Name="ListBox.Height" SetsValue="true">
+      <Value xsi:type="xsd:float">-26</Value>
+    </Variable>
+    <Variable Type="DimensionUnitType" Name="ListBox.HeightUnits" SetsValue="true">
+      <Value xsi:type="xsd:int">2</Value>
+    </Variable>
+    <Variable Type="Gum.Forms.Controls.ScrollBarVisibility" Name="ListBox.VerticalScrollBarVisibility" SetsValue="true">
+      <Value xsi:type="xsd:int">1</Value>
+    </Variable>
+    <Variable Type="float" Name="ListBox.Width" SetsValue="true">
+      <Value xsi:type="xsd:float">100</Value>
+    </Variable>
+    <Variable Type="DimensionUnitType" Name="ListBox.WidthUnits" SetsValue="true">
+      <Value xsi:type="xsd:int">1</Value>
+    </Variable>
+    <Variable Type="VerticalAlignment" Name="ListBox.YOrigin" SetsValue="true">
+      <Value xsi:type="xsd:int">0</Value>
+    </Variable>
+    <Variable Type="PositionUnitType" Name="ListBox.YUnits" SetsValue="true">
+      <Value xsi:type="xsd:int">1</Value>
+    </Variable>
+    <Variable Type="State" Name="State" Category="States and Visibility" SetsValue="false">
+      <Value xsi:type="xsd:string">Default</Value>
+    </Variable>
+    <Variable Type="string" Name="TextEditor.Placeholder" SetsValue="true">
+      <Value xsi:type="xsd:string">chat..</Value>
+    </Variable>
+    <Variable Type="float" Name="TextEditor.Width" SetsValue="true">
+      <Value xsi:type="xsd:float">100</Value>
+    </Variable>
+    <Variable Type="DimensionUnitType" Name="TextEditor.WidthUnits" SetsValue="true">
+      <Value xsi:type="xsd:int">1</Value>
+    </Variable>
+    <Variable Type="float" Name="TextEditor.X" SetsValue="true">
+      <Value xsi:type="xsd:float">0</Value>
+    </Variable>
+    <Variable Type="float" Name="TextEditor.Y" SetsValue="true">
+      <Value xsi:type="xsd:float">0</Value>
+    </Variable>
+    <Variable Type="VerticalAlignment" Name="TextEditor.YOrigin" SetsValue="true">
+      <Value xsi:type="xsd:int">2</Value>
+    </Variable>
+    <Variable Type="PositionUnitType" Name="TextEditor.YUnits" SetsValue="true">
+      <Value xsi:type="xsd:int">5</Value>
+    </Variable>
+    <Variable Type="float" Name="Width" SetsValue="true">
+      <Value xsi:type="xsd:float">285</Value>
+    </Variable>
+    <Variable Type="PositionUnitType" Name="YUnits" SetsValue="true">
+      <Value xsi:type="xsd:int">1</Value>
+    </Variable>
+  </State>
+  <Category>
+    <Name>FocusCatagory</Name>
+    <State>
+      <Name>Unfocused</Name>
+      <Variable Type="Gum.Forms.Controls.ScrollBarVisibility" Name="ListBox.VerticalScrollBarVisibility" SetsValue="true">
+        <Value xsi:type="xsd:int">2</Value>
+      </Variable>
+    </State>
+    <State>
+      <Name>Focused</Name>
+      <Variable Type="Gum.Forms.Controls.ScrollBarVisibility" Name="ListBox.VerticalScrollBarVisibility" SetsValue="true">
+        <Value xsi:type="xsd:int">3</Value>
+      </Variable>
+    </State>
+  </Category>
+  <Instance Name="TextEditor" BaseType="Controls/TextBox" />
+  <Instance Name="ListBox" BaseType="Controls/ListBox" />
+  <Behaviors />
+</ComponentSave>

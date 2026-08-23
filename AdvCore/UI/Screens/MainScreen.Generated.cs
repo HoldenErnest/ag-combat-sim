@@ -1,5 +1,6 @@
 //Code for MainScreen
 using AdvCore.UI.Components;
+using AdvCore.UI.Components.Chat;
 using Gum.Converters;
 using Gum.DataTypes;
 using Gum.Managers;
@@ -37,6 +38,7 @@ partial class MainScreen : global::Gum.Forms.Controls.FrameworkElement
     public TextRuntime TextInstance { get; protected set; }
     public SpriteRuntime SpriteInstance { get; protected set; }
     public HealthBar MainHealthbar { get; protected set; }
+    public ChatInterface ChatInterfaceInstance { get; protected set; }
 
     public MainScreen(InteractiveGue visual) : base(visual)
     {
@@ -53,6 +55,7 @@ partial class MainScreen : global::Gum.Forms.Controls.FrameworkElement
         TextInstance = this.Visual?.GetGraphicalUiElementByName("TextInstance") as global::MonoGameGum.GueDeriving.TextRuntime;
         SpriteInstance = this.Visual?.GetGraphicalUiElementByName("SpriteInstance") as global::MonoGameGum.GueDeriving.SpriteRuntime;
         MainHealthbar = global::Gum.Forms.GraphicalUiElementFormsExtensions.TryGetFrameworkElementByName<HealthBar>(this.Visual,"MainHealthbar");
+        ChatInterfaceInstance = global::Gum.Forms.GraphicalUiElementFormsExtensions.TryGetFrameworkElementByName<ChatInterface>(this.Visual,"ChatInterfaceInstance");
         CustomInitialize();
     }
     //Not assigning variables because Object Instantiation Type is set to By Name rather than Fully In Code

@@ -53,7 +53,7 @@
       <Value xsi:type="xsd:float">0</Value>
     </Variable>
     <Variable IsFile="true" Type="string" Name="SourceFile" Category="Source" SetsValue="true">
-      <Value xsi:type="xsd:string">ExampleSpriteFrame.png</Value>
+      <Value xsi:type="xsd:string"></Value>
     </Variable>
     <Variable Type="State" Name="State" Category="States and Visibility" SetsValue="false">
       <Value xsi:type="xsd:string">Default</Value>

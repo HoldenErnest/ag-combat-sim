@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Security.Cryptography;
+using AdvCore.Chat;
 using AdvCore.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -70,13 +71,30 @@ public class PlayerController : Controller {
             character.model.UpdateMovement(prevInputDir, inputDir);
         }
     }
+    
+    private void UpdateEnterPress(KeyboardStateExtended keysState) {
+        // The enter key can be used in different ways depending on context.
+        if (!keysState.WasKeyPressed(Keys.Enter)) return;
+
+        ChatManager chat = Core.chat;
+
+        if (chat.EditorFocused()) {
+            chat.SendPlayerMessage(character);
+        }
+    }
 
     private void UpdateExtraInputs(KeyboardStateExtended keysState) {
+
+        UpdateEnterPress(keysState);
+
+        // RANDOM THINGS PROBABLY TO REMOVE;
         if (keysState.WasKeyPressed(Keys.OemMinus)) {
             character.TakeDamage(character, 10);
+            Core.chat.SendDebugMessage("DAMAGE SENT to player");
         }
         if (keysState.WasKeyPressed(Keys.OemPlus)) {
             character.TakeDamage(character, -10);
+            Core.chat.SendDebugMessage("DAMAGE REMOVED from player");
         }
     }
 

@@ -1,0 +1,101 @@
+//Code for Chat/ChatItem (Container)
+using Gum.Converters;
+using Gum.DataTypes;
+using Gum.Managers;
+using Gum.Wireframe;
+using GumRuntime;
+using MonoGameGum;
+using MonoGameGum.GueDeriving;
+using RenderingLibrary.Graphics;
+using System.Linq;
+namespace AdvCore.UI.Components.Chat;
+partial class ChatItem : global::Gum.Forms.Controls.ListBoxItem
+{
+    [System.Runtime.CompilerServices.ModuleInitializer]
+    public static void RegisterRuntimeType()
+    {
+        var template = new global::Gum.Forms.VisualTemplate((vm, createForms) =>
+        {
+            var visual = new global::MonoGameGum.GueDeriving.ContainerRuntime();
+            var element = ObjectFinder.Self.GetElementSave("Chat/ChatItem") ?? throw new System.InvalidOperationException("Could not find an element named Chat/ChatItem - did you forget to load a Gum project?");
+            element.SetGraphicalUiElement(visual, RenderingLibrary.SystemManagers.Default);
+            if(createForms) visual.FormsControlAsObject = new ChatItem(visual);
+            return visual;
+        });
+        global::Gum.Forms.Controls.FrameworkElement.DefaultFormsTemplates[typeof(ChatItem)] = template;
+        ElementSaveExtensions.RegisterGueInstantiation("Chat/ChatItem", () => 
+        {
+            var gue = template.CreateContent(null, true) as InteractiveGue;
+            return gue;
+        });
+    }
+    public enum ListBoxItemCategory
+    {
+        Enabled,
+        Highlighted,
+        Selected,
+        Focused,
+    }
+
+    ListBoxItemCategory? _listBoxItemCategoryState;
+    public ListBoxItemCategory? ListBoxItemCategoryState
+    {
+        get => _listBoxItemCategoryState;
+        set
+        {
+            _listBoxItemCategoryState = value;
+            if(value != null)
+            {
+                if(Visual.Categories.ContainsKey("ListBoxItemCategory"))
+                {
+                    var category = Visual.Categories["ListBoxItemCategory"];
+                    var state = category.States.Find(item => item.Name == value.ToString());
+                    this.Visual.ApplyState(state);
+                }
+                else
+                {
+                    var category = ((global::Gum.DataTypes.ElementSave)this.Visual.Tag).Categories.FirstOrDefault(item => item.Name == "ListBoxItemCategory");
+                    var state = category.States.Find(item => item.Name == value.ToString());
+                    this.Visual.ApplyState(state);
+                }
+            }
+        }
+    }
+    public NineSliceRuntime Background { get; protected set; }
+    public TextRuntime MessageText { get; protected set; }
+    public TextRuntime SenderText { get; protected set; }
+    public NineSliceRuntime FocusedIndicator { get; protected set; }
+
+    public string MessageData
+    {
+        get => MessageText.Text;
+        set => MessageText.Text = value;
+    }
+
+    public string SenderName
+    {
+        get => SenderText.Text;
+        set => SenderText.Text = value;
+    }
+
+    public ChatItem(InteractiveGue visual) : base(visual)
+    {
+    }
+    public ChatItem()
+    {
+
+
+
+    }
+    protected override void ReactToVisualChanged()
+    {
+        base.ReactToVisualChanged();
+        Background = this.Visual?.GetGraphicalUiElementByName("Background") as global::MonoGameGum.GueDeriving.NineSliceRuntime;
+        MessageText = this.Visual?.GetGraphicalUiElementByName("MessageText") as global::MonoGameGum.GueDeriving.TextRuntime;
+        SenderText = this.Visual?.GetGraphicalUiElementByName("SenderText") as global::MonoGameGum.GueDeriving.TextRuntime;
+        FocusedIndicator = this.Visual?.GetGraphicalUiElementByName("FocusedIndicator") as global::MonoGameGum.GueDeriving.NineSliceRuntime;
+        CustomInitialize();
+    }
+    //Not assigning variables because Object Instantiation Type is set to By Name rather than Fully In Code
+    partial void CustomInitialize();
+}
