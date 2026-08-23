@@ -3,14 +3,17 @@
   <Name>MainScreen</Name>
   <State>
     <Name>Default</Name>
-    <Variable Type="bool" Name="HealthBarInstance.Visible" SetsValue="true">
+    <Variable Type="bool" Name="MainHealthbar.Visible" SetsValue="true">
       <Value xsi:type="xsd:boolean">true</Value>
     </Variable>
-    <Variable Type="float" Name="HealthBarInstance.X" SetsValue="true">
-      <Value xsi:type="xsd:float">222</Value>
+    <Variable Type="float" Name="MainHealthbar.Width" SetsValue="true">
+      <Value xsi:type="xsd:float">200</Value>
     </Variable>
-    <Variable Type="float" Name="HealthBarInstance.Y" SetsValue="true">
-      <Value xsi:type="xsd:float">142</Value>
+    <Variable Type="float" Name="MainHealthbar.X" SetsValue="true">
+      <Value xsi:type="xsd:float">133</Value>
+    </Variable>
+    <Variable Type="float" Name="MainHealthbar.Y" SetsValue="true">
+      <Value xsi:type="xsd:float">548</Value>
     </Variable>
     <Variable Type="float" Name="SpriteInstance.Height" SetsValue="true">
       <Value xsi:type="xsd:float">100.13325</Value>
@@ -81,6 +84,6 @@
   </State>
   <Instance Name="TextInstance" BaseType="Text" />
   <Instance Name="SpriteInstance" BaseType="Sprite" />
-  <Instance Name="HealthBarInstance" BaseType="HealthBar" />
+  <Instance Name="MainHealthbar" BaseType="HealthBar" />
   <Behaviors />
 </ScreenSave>

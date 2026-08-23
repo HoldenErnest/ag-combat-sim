@@ -29,8 +29,46 @@ partial class HealthBar : global::Gum.Forms.Controls.FrameworkElement
             return gue;
         });
     }
+    public enum DamageChange
+    {
+        Healing,
+        Damaged,
+        None,
+    }
+
+    DamageChange? _damageChangeState;
+    public DamageChange? DamageChangeState
+    {
+        get => _damageChangeState;
+        set
+        {
+            _damageChangeState = value;
+            if(value != null)
+            {
+                if(Visual.Categories.ContainsKey("DamageChange"))
+                {
+                    var category = Visual.Categories["DamageChange"];
+                    var state = category.States.Find(item => item.Name == value.ToString());
+                    this.Visual.ApplyState(state);
+                }
+                else
+                {
+                    var category = ((global::Gum.DataTypes.ElementSave)this.Visual.Tag).Categories.FirstOrDefault(item => item.Name == "DamageChange");
+                    var state = category.States.Find(item => item.Name == value.ToString());
+                    this.Visual.ApplyState(state);
+                }
+            }
+        }
+    }
     public RectangleRuntime Background { get; protected set; }
+    public RectangleRuntime DifferenceBar { get; protected set; }
     public RectangleRuntime Fill { get; protected set; }
+
+    public float DiffPercentage
+    {
+        get => DifferenceBar.Width;
+        set => DifferenceBar.Width = value;
+    }
 
     public float HealthPercentage
     {
@@ -51,6 +89,7 @@ partial class HealthBar : global::Gum.Forms.Controls.FrameworkElement
     {
         base.ReactToVisualChanged();
         Background = this.Visual?.GetGraphicalUiElementByName("Background") as global::MonoGameGum.GueDeriving.RectangleRuntime;
+        DifferenceBar = this.Visual?.GetGraphicalUiElementByName("DifferenceBar") as global::MonoGameGum.GueDeriving.RectangleRuntime;
         Fill = this.Visual?.GetGraphicalUiElementByName("Fill") as global::MonoGameGum.GueDeriving.RectangleRuntime;
         CustomInitialize();
     }

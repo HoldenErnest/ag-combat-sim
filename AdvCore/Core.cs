@@ -7,6 +7,7 @@ using MonoGame.Extended.ViewportAdapters;
 using Gum;
 using Gum.Forms;
 using Gum.Forms.Controls;
+using AdvCore.Input;
 
 namespace AdvCore;
 
@@ -19,7 +20,7 @@ public class Core : Game
     /// </summary>
     public static Core Instance => s_instance;
 
-    public static OrthographicCamera camera;
+    public static CameraMod camera;
     public static GumService GumUI => GumService.Default;
 
     /// <summary>
@@ -95,9 +96,7 @@ public class Core : Game
         BoxingViewportAdapter viewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice, 800, 480);
 
         // Initialize the camera with the viewport adapter
-        camera = new OrthographicCamera(viewportAdapter);
-        camera.MaximumZoom = 10f;
-        camera.MinimumZoom = 1f;
+        camera = new CameraMod(new OrthographicCamera(viewportAdapter));
 
         base.Initialize();
 

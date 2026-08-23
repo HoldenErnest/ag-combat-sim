@@ -17,12 +17,10 @@ public class Character : GameObject
     public CharacterModel model;
     protected Controller controls;
     protected Inventory inventory;
-    private StatsManager statsManager;
+    public StatsManager statsManager;
     private Skillbook skillbook;
     private HealthManager healthManager;
-
-    private HealthBar healthBarTest; // tODO move to UI manager?
-
+    public UICharacterManager uiManager;
 
     public readonly int ID;
     private bool savable;
@@ -44,10 +42,8 @@ public class Character : GameObject
         model = new CharacterModel();
         inventory = Inventory.FromSaveFile(id);
         inventory.SetupUser(this);
-
-        
-        healthBarTest = new HealthBar(); // TODO: move to UI Manager?
-        Core.GumUI.Root.AddChild(healthBarTest);
+        uiManager = new UICharacterManager(this);
+        healthManager = new HealthManager(this);
     }
 
 
@@ -56,11 +52,7 @@ public class Character : GameObject
     {
         controls.Update(gameTime);
         model.Update(gameTime);
-
-        // TODO -- temp... also, update UI
-        Vector2 screenCoords = Core.camera.WorldToScreen(getPosition());
-        healthBarTest.X = screenCoords.X;
-        healthBarTest.Y = screenCoords.Y;
+        uiManager.Update(gameTime);
     }
     public void LoadContent()
     {
@@ -80,5 +72,12 @@ public class Character : GameObject
     {
         // returns the world position of this character.
         return controls.getPosition();
+    }
+
+
+
+    // START DAMAGE
+    public void TakeDamage(Character caster, int damage) {
+        healthManager.TakeDamage(caster, damage);
     }
 }

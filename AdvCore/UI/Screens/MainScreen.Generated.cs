@@ -36,7 +36,7 @@ partial class MainScreen : global::Gum.Forms.Controls.FrameworkElement
     }
     public TextRuntime TextInstance { get; protected set; }
     public SpriteRuntime SpriteInstance { get; protected set; }
-    public HealthBar HealthBarInstance { get; protected set; }
+    public HealthBar MainHealthbar { get; protected set; }
 
     public MainScreen(InteractiveGue visual) : base(visual)
     {
@@ -52,7 +52,7 @@ partial class MainScreen : global::Gum.Forms.Controls.FrameworkElement
         base.ReactToVisualChanged();
         TextInstance = this.Visual?.GetGraphicalUiElementByName("TextInstance") as global::MonoGameGum.GueDeriving.TextRuntime;
         SpriteInstance = this.Visual?.GetGraphicalUiElementByName("SpriteInstance") as global::MonoGameGum.GueDeriving.SpriteRuntime;
-        HealthBarInstance = global::Gum.Forms.GraphicalUiElementFormsExtensions.TryGetFrameworkElementByName<HealthBar>(this.Visual,"HealthBarInstance");
+        MainHealthbar = global::Gum.Forms.GraphicalUiElementFormsExtensions.TryGetFrameworkElementByName<HealthBar>(this.Visual,"MainHealthbar");
         CustomInitialize();
     }
     //Not assigning variables because Object Instantiation Type is set to By Name rather than Fully In Code

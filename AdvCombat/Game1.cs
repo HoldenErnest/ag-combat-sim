@@ -60,6 +60,7 @@ public class Game1 : Core
 
         player.Update(gameTime);
 
+        camera.Update(gameTime);
         GumUI.Update(gameTime);
         base.Update(gameTime);
     }

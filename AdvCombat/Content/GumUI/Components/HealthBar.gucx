@@ -5,13 +5,13 @@
   <State>
     <Name>Default</Name>
     <Variable Type="int" Name="Background.FillBlue" SetsValue="true">
-      <Value xsi:type="xsd:int">63</Value>
+      <Value xsi:type="xsd:int">0</Value>
     </Variable>
     <Variable Type="int" Name="Background.FillGreen" SetsValue="true">
-      <Value xsi:type="xsd:int">63</Value>
+      <Value xsi:type="xsd:int">0</Value>
     </Variable>
     <Variable Type="int" Name="Background.FillRed" SetsValue="true">
-      <Value xsi:type="xsd:int">63</Value>
+      <Value xsi:type="xsd:int">0</Value>
     </Variable>
     <Variable Type="float" Name="Background.Height" SetsValue="true">
       <Value xsi:type="xsd:float">0</Value>
@@ -49,6 +49,56 @@
     <Variable Type="PositionUnitType" Name="Background.YUnits" SetsValue="true">
       <Value xsi:type="xsd:int">7</Value>
     </Variable>
+    <Variable Type="DamageChange" Name="DamageChangeState" SetsValue="true" />
+    <Variable Type="int" Name="DifferenceBar.FillBlue" SetsValue="true">
+      <Value xsi:type="xsd:int">5</Value>
+    </Variable>
+    <Variable Type="int" Name="DifferenceBar.FillGreen" SetsValue="true">
+      <Value xsi:type="xsd:int">0</Value>
+    </Variable>
+    <Variable Type="int" Name="DifferenceBar.FillRed" SetsValue="true">
+      <Value xsi:type="xsd:int">112</Value>
+    </Variable>
+    <Variable Type="float" Name="DifferenceBar.Height" SetsValue="true">
+      <Value xsi:type="xsd:float">0</Value>
+    </Variable>
+    <Variable Type="DimensionUnitType" Name="DifferenceBar.HeightUnits" SetsValue="true">
+      <Value xsi:type="xsd:int">2</Value>
+    </Variable>
+    <Variable Type="bool" Name="DifferenceBar.IsFilled" SetsValue="true">
+      <Value xsi:type="xsd:boolean">true</Value>
+    </Variable>
+    <Variable Type="string" Name="DifferenceBar.Parent" SetsValue="true" />
+    <Variable Type="float" Name="DifferenceBar.StrokeWidth" SetsValue="true">
+      <Value xsi:type="xsd:float">0</Value>
+    </Variable>
+    <Variable Type="bool" Name="DifferenceBar.Visible" SetsValue="true">
+      <Value xsi:type="xsd:boolean">false</Value>
+    </Variable>
+    <Variable Type="float" Name="DifferenceBar.Width" ExposedAsName="DiffPercentage" SetsValue="true">
+      <Value xsi:type="xsd:float">100</Value>
+    </Variable>
+    <Variable Type="DimensionUnitType" Name="DifferenceBar.WidthUnits" SetsValue="true">
+      <Value xsi:type="xsd:int">1</Value>
+    </Variable>
+    <Variable Type="float" Name="DifferenceBar.X" SetsValue="true">
+      <Value xsi:type="xsd:float">0</Value>
+    </Variable>
+    <Variable Type="HorizontalAlignment" Name="DifferenceBar.XOrigin" SetsValue="true">
+      <Value xsi:type="xsd:int">0</Value>
+    </Variable>
+    <Variable Type="PositionUnitType" Name="DifferenceBar.XUnits" SetsValue="true">
+      <Value xsi:type="xsd:int">0</Value>
+    </Variable>
+    <Variable Type="float" Name="DifferenceBar.Y" SetsValue="true">
+      <Value xsi:type="xsd:float">0</Value>
+    </Variable>
+    <Variable Type="VerticalAlignment" Name="DifferenceBar.YOrigin" SetsValue="true">
+      <Value xsi:type="xsd:int">1</Value>
+    </Variable>
+    <Variable Type="PositionUnitType" Name="DifferenceBar.YUnits" SetsValue="true">
+      <Value xsi:type="xsd:int">7</Value>
+    </Variable>
     <Variable Type="int" Name="Fill.FillBlue" SetsValue="true">
       <Value xsi:type="xsd:int">0</Value>
     </Variable>
@@ -71,7 +121,7 @@
       <Value xsi:type="xsd:float">0</Value>
     </Variable>
     <Variable Type="float" Name="Fill.Width" ExposedAsName="HealthPercentage" SetsValue="true">
-      <Value xsi:type="xsd:float">74</Value>
+      <Value xsi:type="xsd:float">100</Value>
     </Variable>
     <Variable Type="DimensionUnitType" Name="Fill.WidthUnits" SetsValue="true">
       <Value xsi:type="xsd:int">1</Value>
@@ -95,22 +145,68 @@
       <Value xsi:type="xsd:int">7</Value>
     </Variable>
     <Variable Type="float" Name="Height" SetsValue="true">
-      <Value xsi:type="xsd:float">38</Value>
+      <Value xsi:type="xsd:float">12</Value>
+    </Variable>
+    <Variable Type="DimensionUnitType" Name="HeightUnits" SetsValue="true">
+      <Value xsi:type="xsd:int">5</Value>
     </Variable>
     <Variable Type="State" Name="State" Category="States and Visibility" SetsValue="false">
       <Value xsi:type="xsd:string">Default</Value>
     </Variable>
+    <Variable Type="float" Name="Width" SetsValue="true">
+      <Value xsi:type="xsd:float">110</Value>
+    </Variable>
     <Variable Type="float" Name="X" SetsValue="true">
-      <Value xsi:type="xsd:float">339</Value>
+      <Value xsi:type="xsd:float">0</Value>
     </Variable>
     <Variable Type="HorizontalAlignment" Name="XOrigin" SetsValue="true">
       <Value xsi:type="xsd:int">1</Value>
     </Variable>
     <Variable Type="float" Name="Y" SetsValue="true">
-      <Value xsi:type="xsd:float">198</Value>
+      <Value xsi:type="xsd:float">0</Value>
     </Variable>
   </State>
+  <Category>
+    <Name>DamageChange</Name>
+    <State>
+      <Name>Healing</Name>
+      <Variable Type="int" Name="DifferenceBar.FillGreen" SetsValue="true">
+        <Value xsi:type="xsd:int">255</Value>
+      </Variable>
+      <Variable Type="int" Name="DifferenceBar.FillRed" SetsValue="true">
+        <Value xsi:type="xsd:int">126</Value>
+      </Variable>
+      <Variable Type="bool" Name="DifferenceBar.Visible" Category="States and Visibility" SetsValue="true">
+        <Value xsi:type="xsd:boolean">true</Value>
+      </Variable>
+    </State>
+    <State>
+      <Name>Damaged</Name>
+      <Variable Type="int" Name="DifferenceBar.FillGreen" SetsValue="true">
+        <Value xsi:type="xsd:int">0</Value>
+      </Variable>
+      <Variable Type="int" Name="DifferenceBar.FillRed" SetsValue="true">
+        <Value xsi:type="xsd:int">133</Value>
+      </Variable>
+      <Variable Type="bool" Name="DifferenceBar.Visible" Category="States and Visibility" SetsValue="true">
+        <Value xsi:type="xsd:boolean">true</Value>
+      </Variable>
+    </State>
+    <State>
+      <Name>None</Name>
+      <Variable Type="int" Name="DifferenceBar.FillGreen" SetsValue="true">
+        <Value xsi:type="xsd:int">0</Value>
+      </Variable>
+      <Variable Type="int" Name="DifferenceBar.FillRed" SetsValue="true">
+        <Value xsi:type="xsd:int">61</Value>
+      </Variable>
+      <Variable Type="bool" Name="DifferenceBar.Visible" SetsValue="true">
+        <Value xsi:type="xsd:boolean">false</Value>
+      </Variable>
+    </State>
+  </Category>
   <Instance Name="Background" BaseType="Rectangle" />
+  <Instance Name="DifferenceBar" BaseType="Rectangle" />
   <Instance Name="Fill" BaseType="Rectangle" />
   <Behaviors />
 </ComponentSave>

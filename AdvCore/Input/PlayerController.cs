@@ -29,6 +29,7 @@ public class PlayerController : Controller {
         float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
         UpdateInputs(keyboardState);
+        UpdateExtraInputs(keyboardState);
 
         UpdateVelocity(dt);
         Move(dt);
@@ -37,9 +38,9 @@ public class PlayerController : Controller {
 
     }
     public void UpdateCamera(MouseStateExtended mouseState) {
-        Core.camera.LookAt(getPosition());
-
-        Core.camera.Zoom += mouseState.DeltaScrollWheelValue/100f;
+        Core.camera.SetTarget(character.getPosition());
+        if (mouseState.DeltaScrollWheelValue == 0) return;
+        Core.camera.Zoom(mouseState.DeltaScrollWheelValue);
     }
 
     private void UpdateInputs(KeyboardStateExtended keysState)
@@ -67,6 +68,15 @@ public class PlayerController : Controller {
         // TODO: move this out of this method for AIControllers
         if (prevInputDir != inputDir) {
             character.model.UpdateMovement(prevInputDir, inputDir);
+        }
+    }
+
+    private void UpdateExtraInputs(KeyboardStateExtended keysState) {
+        if (keysState.WasKeyPressed(Keys.OemMinus)) {
+            character.TakeDamage(character, 10);
+        }
+        if (keysState.WasKeyPressed(Keys.OemPlus)) {
+            character.TakeDamage(character, -10);
         }
     }
 
