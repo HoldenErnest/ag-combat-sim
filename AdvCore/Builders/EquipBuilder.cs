@@ -24,7 +24,6 @@ public class EquipBuilder {
         if (dict.Count < 1) {
             throw new Exception("Item list has not been loaded before attempting to build");
         }
-        Console.WriteLine("EQUIP PULLED: " + dict[id]);
         
         return dict[id];
     }

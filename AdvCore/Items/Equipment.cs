@@ -31,6 +31,7 @@ public class Equipment : Item
     public int[] skills {get; init; }
     public Stats stats {get; init; }
     public string textureFile {get; init; }
+    public float skillMultiplier {get; init; } = 1f;
 
     public Equipment(int id) : base(id)
     {

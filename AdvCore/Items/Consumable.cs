@@ -6,6 +6,7 @@ namespace AdvCore.Items;
 public class Consumable : Item {
 
     public int effect;
+    public float effectMultiplier = 1f;
 
     public Consumable(int id) : base(id) {
         

@@ -9,6 +9,7 @@ using AdvCore.Items;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using AdvCore.UI.Components;
+using AdvCore.Effects;
 
 namespace AdvCore;
 
@@ -21,6 +22,7 @@ public class Character : GameObject
     private Skillbook skillbook;
     private HealthManager healthManager;
     public UICharacterManager uiManager;
+    public EffectManager effectManager;
 
     public readonly int ID;
     private bool savable;
@@ -44,6 +46,7 @@ public class Character : GameObject
         inventory.SetupUser(this);
         uiManager = new UICharacterManager(this);
         healthManager = new HealthManager(this);
+        effectManager = new EffectManager(this);
     }
 
     // START - basic methods
@@ -59,7 +62,9 @@ public class Character : GameObject
     {
         controls.Update(gameTime);
         model.Update(gameTime);
+        effectManager.Update(gameTime);
         uiManager.Update(gameTime);
+
     }
     public void LoadContent()
     {
