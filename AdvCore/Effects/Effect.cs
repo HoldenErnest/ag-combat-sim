@@ -2,9 +2,9 @@
 //                             Typically these effects are procced at an interval for a certain duration.
 
 using System;
-using System.Drawing;
 using System.Text.Json;
 using AdvCore.Builders;
+using Microsoft.Xna.Framework;
 
 namespace AdvCore.Effects;
 
@@ -18,7 +18,7 @@ public class Effect {
     public bool removable {get; init; } // can the character themselves remove this effect (for anoying effects that you might not want on all the time)
     public float duration {get; init; }
     public float procInterval {get; init; }
-    public float effectMultiplier {get; init; }
+    public float effectMultiplier {get; set; }
 
     public string iconName {get; init; }
     public string hexColor {get; init; }
@@ -26,16 +26,86 @@ public class Effect {
     public string audioName {get; init; } // play on each proc
 
     private Color color;
+    private bool isActive = false;
+
+    private TimeSpan finishTime;
+    private TimeSpan nextProcTime;
+    private Character target, caster;
 
     public static readonly Effect NullEffect = new Effect(0);
 
     public Effect(int id) {
         ID = id;
-        color = ColorTranslator.FromHtml(hexColor);
+        //color = ColorTranslator.FromHtml(hexColor);
     }
     public Effect Clone() {
-        string json = JsonSerializer.Serialize(this); // TODO
+        string json = JsonSerializer.Serialize(this); // TODO idk if needed - probvably
         return JsonSerializer.Deserialize<Effect>(json);
+    }
+
+    public void RefreshDuration(GameTime gameTime, float effMult) {
+        if (!isActive) {
+            // just in case 
+            BeginEffect(gameTime, target, caster);
+            return;
+        }
+        TimeSpan currentTime = gameTime.TotalGameTime;
+        nextProcTime = currentTime;
+        finishTime = TimeSpan.FromSeconds(duration) + currentTime;
+
+        // TODO: UPDATE THE effectMultiplier to use the higher damage?????
+        // the thing is two different casters mightve used the same effect on this character
+        // so the damage might not be so cut and dry as the effectMultiplier
+
+        Proc(); 
+
+        if (duration == 0) EndEffect();
+    }
+
+    public void BeginEffect(GameTime gameTime, Character tar, Character cas) {
+        target = tar;
+        caster = cas;
+        isActive = true;
+
+        RefreshDuration(gameTime, effectMultiplier);
+    }
+    public void EndEffect() {
+        isActive = false;
+    }
+    public bool IsActive() {
+        return isActive;
+    }
+
+
+    public void Update(GameTime gameTime) {
+        // when this effect is active, Update its effect here.
+        if (!isActive) return;
+        
+        TimeSpan currentTime = gameTime.TotalGameTime;
+
+        if (nextProcTime < currentTime) {
+            Proc();
+        }
+
+        if (currentTime > finishTime) EndEffect();
+
+    }
+
+    protected virtual void Proc() {
+        // Child Proc stuff
+        RefreshProcInterval();
+    }
+
+    private void RefreshProcInterval() {
+        if (nextProcTime == TimeSpan.MaxValue) return;
+        if (procInterval > 0) {
+            nextProcTime += TimeSpan.FromSeconds(procInterval);
+
+            // just to be safe that it cant proc more than intended (using hardware buffering)
+            if (nextProcTime > finishTime) nextProcTime = TimeSpan.MaxValue;
+        } else {
+            nextProcTime = TimeSpan.MaxValue;
+        }
     }
 
 

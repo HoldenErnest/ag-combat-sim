@@ -20,4 +20,8 @@ public class EffectManager {
     public void Update(GameTime gameTime) {
         // TODO PROC SYSTEM
     }
+
+    public void AddEffect(Character caster, Effect e) {
+        
+    }
 }
