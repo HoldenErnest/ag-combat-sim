@@ -46,6 +46,8 @@ public class EquipBuilder {
     }
 }
 
+// TODO IMPORTANT> _______>>> determine effect subclass when parsing. (idk best way to do this)
+// TODO keep in mind: it will need the same parsing for multiEffects ect. (you probably dont want to just add these sub effects directly to active because they should remain seperate proccing)
 
 // Used strictly to deserialize json
 public struct EquipList {

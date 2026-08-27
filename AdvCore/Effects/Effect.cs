@@ -2,6 +2,7 @@
 //                             Typically these effects are procced at an interval for a certain duration.
 
 using System;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 using AdvCore.Builders;
 using Microsoft.Xna.Framework;
@@ -43,31 +44,35 @@ public class Effect {
         return JsonSerializer.Deserialize<Effect>(json);
     }
 
-    public void RefreshDuration(GameTime gameTime, float effMult) {
+    public void RefreshDuration(TimeSpan currentTime, Effect newestEffect = null) {
         if (!isActive) {
-            // just in case 
-            BeginEffect(gameTime, target, caster);
+            // just in case a refresh is called when its not active.
+            BeginEffect(currentTime, target, caster);
             return;
         }
-        TimeSpan currentTime = gameTime.TotalGameTime;
         nextProcTime = currentTime;
         finishTime = TimeSpan.FromSeconds(duration) + currentTime;
 
-        // TODO: UPDATE THE effectMultiplier to use the higher damage?????
-        // the thing is two different casters mightve used the same effect on this character
-        // so the damage might not be so cut and dry as the effectMultiplier
+        UpdateRefreshValues(newestEffect);
 
         Proc(); 
 
         if (duration == 0) EndEffect();
     }
 
-    public void BeginEffect(GameTime gameTime, Character tar, Character cas) {
+    private void UpdateRefreshValues(Effect e) {
+        if (e is null) return;
+        // TODO: UPDATE THE effectMultiplier to use the higher damage?????
+        // the thing is two different casters mightve used the same effect on this character
+        // so the damage might not be so cut and dry as the effectMultiplier
+    }
+
+    public void BeginEffect(TimeSpan currentTime, Character tar, Character cas) {
         target = tar;
         caster = cas;
         isActive = true;
 
-        RefreshDuration(gameTime, effectMultiplier);
+        RefreshDuration(currentTime);
     }
     public void EndEffect() {
         isActive = false;
@@ -87,7 +92,7 @@ public class Effect {
             Proc();
         }
 
-        if (currentTime > finishTime) EndEffect();
+        if (finishTime < currentTime) EndEffect();
 
     }
 
