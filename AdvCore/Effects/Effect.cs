@@ -2,9 +2,11 @@
 //                             Typically these effects are procced at an interval for a certain duration.
 
 using System;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using AdvCore.Builders;
+using AdvCore.Data;
 using Microsoft.Xna.Framework;
 
 namespace AdvCore.Effects;
@@ -17,9 +19,9 @@ public class Effect {
     public string desc {get; init; }
     public string[] tags {get; init; }
     public bool removable {get; init; } // can the character themselves remove this effect (for anoying effects that you might not want on all the time)
-    public float duration {get; init; }
-    public float procInterval {get; init; }
-    public float effectMultiplier {get; set; }
+    public float duration {get; init; } = 0f;
+    public float procInterval {get; init; } = 1f;
+    public float effectMultiplier {get; set; } = 1f;
 
     public string iconName {get; init; }
     public string hexColor {get; init; }
@@ -114,4 +116,23 @@ public class Effect {
     }
 
 
+}
+
+
+
+public class EffectStruct {
+    // use a specific effectmultiplier with an effect
+    // these are typically used for subeffect loading (effects found within other objects)
+    public int ID {get; init; }
+    public float effectMultiplier {get; set; } = 1f;
+
+    public EffectStruct() {
+        
+    }
+
+    public Effect ToEffect() {
+        Effect e = new EffectBuilder().FromID(ID);
+        e.effectMultiplier = effectMultiplier;
+        return e;
+    }
 }

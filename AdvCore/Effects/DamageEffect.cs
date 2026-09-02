@@ -6,6 +6,14 @@ namespace AdvCore.Effects;
 
 public class DamageEffect {
 
+    public int damage {get; init; }
+    public string type {get; init; }
+    public string[] stackTags {get; init; }
+    public int maxStacks {get; init; } = 1;
+    public float stackMultiplier {get; init; } = 1f;
+    public float backMultiplier {get; init; } = 1f;
+
+    private int stacks;
 
     public DamageEffect() {
         
