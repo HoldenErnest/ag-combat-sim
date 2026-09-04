@@ -41,7 +41,11 @@ public class ChatCommands {
             case "damage":
                 DamageCommand(c, args);
                 break;
+            case "effect":
+                EffectCommand(c, args);
+                break;
             default:
+                chat.SendDebugMessage("Invalid Command '" + args[0] + "'");
                 break;
         }
     }
@@ -67,6 +71,26 @@ public class ChatCommands {
         }
 
         target.TakeDamage(c, damage);
+    
+    }
+
+    private void EffectCommand(Character c, string[] args) {
+        Character target;
+        if (args[1] == "self") {
+            target = c;
+        } else {
+            chat.SendCommandMessage("error: target not found '" + args[1] + "'");
+            return;
+        }
+
+        int effectID = 0;
+
+        if (!Int32.TryParse(args[2], out effectID)) {
+            chat.SendCommandMessage("error: invalid effect ID '" + args[2] + "'");
+            return;
+        }
+
+        target.effectManager.AddEffect(c, effectID);
     
     }
     

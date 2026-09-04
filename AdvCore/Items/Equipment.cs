@@ -29,7 +29,7 @@ public class Equipment : Item
     // Immutable properties (loaded from lookup)
     public string gearType {get; init; }
     public int[] skills {get; init; }
-    public Stats stats {get; init; }
+    public StatModifier stats {get; init; }
     public string textureFile {get; init; }
     public float skillMultiplier {get; init; } = 1f;
 

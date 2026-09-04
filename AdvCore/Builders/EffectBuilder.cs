@@ -40,16 +40,28 @@ public class EffectBuilder {
         JsonSerializerOptions options = new JsonSerializerOptions {IncludeFields = true};
         EffectList data = JsonSerializer.Deserialize<EffectList>(jsonString, options);
 
-        if (data.effects is null) {
+        if (data.damage is null) {
             throw new FileLoadException();
         }
 
-        foreach (Effect e in data.effects) {
-            dict.Add(e.ID, e);
-        }
+        data.AddAllToDict(dict);
     }
 }
 
-public struct EffectList {
-    public Effect[] effects;
+public class EffectList {
+    public DamageEffect[] damage;
+    public MultiEffect[] multi;
+    public StatEffect[] stat;
+
+    public void AddAllToDict(Dictionary<int, Effect> dict) {
+        foreach (DamageEffect e in damage) {
+            dict.Add(e.ID, e);
+        }
+        foreach (MultiEffect e in multi) {
+            dict.Add(e.ID, e);
+        }
+        foreach (StatEffect e in stat) {
+            dict.Add(e.ID, e);
+        }
+    }
 }

@@ -18,5 +18,6 @@ public static class Database
         // Load any lookup dicts
         ItemBuilder.LoadList();
         EquipBuilder.LoadList();
+        EffectBuilder.LoadList();
     }
 }

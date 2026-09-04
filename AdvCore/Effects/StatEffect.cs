@@ -6,11 +6,11 @@ using AdvCore.StatCore;
 namespace AdvCore.Effects;
 
 
-public class StatEffect {
+public class StatEffect : Effect{
 
-    public Stats statChange {get; init; }
+    public StatModifier statChange {get; init; }
     
-    public StatEffect() {
+    public StatEffect(int id): base(id) {
         
     }
 }

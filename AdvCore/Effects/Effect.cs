@@ -20,7 +20,7 @@ public class Effect {
     public string[] tags {get; init; }
     public bool removable {get; init; } // can the character themselves remove this effect (for anoying effects that you might not want on all the time)
     public float duration {get; init; } = 0f;
-    public float procInterval {get; init; } = 1f;
+    public float procInterval {get; init; } = 0f;
     public float effectMultiplier {get; set; } = 1f;
 
     public string iconName {get; init; }
@@ -77,6 +77,8 @@ public class Effect {
         RefreshDuration(currentTime);
     }
     public void EndEffect() {
+        // TEMP -----------------
+        Core.chat.SendDebugMessage("EFFECT " + name + " ENDED");
         isActive = false;
     }
     public bool IsActive() {

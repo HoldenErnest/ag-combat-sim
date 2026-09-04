@@ -1,10 +1,12 @@
 // Holden Ernest - 8/24/2026 - An effect which Damages the target.
 //                             Examples: poison, instant_physical_damage, MANY things
 
+using AdvCore.Chat;
+
 namespace AdvCore.Effects;
 
 
-public class DamageEffect {
+public class DamageEffect : Effect {
 
     public int damage {get; init; }
     public string type {get; init; }
@@ -15,7 +17,12 @@ public class DamageEffect {
 
     private int stacks;
 
-    public DamageEffect() {
+    public DamageEffect(int id) : base(id) {
         
+    }
+
+    protected override void Proc() {
+        Core.chat.SendDebugMessage("Damage Effect proc: " + name);
+        base.Proc();
     }
 }

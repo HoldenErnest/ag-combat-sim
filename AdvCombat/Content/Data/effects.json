@@ -10,4 +10,7 @@
         {"ID": 2, "effectMultiplier": 20},
         {"ID": 4, "effectMultiplier": 1.5}
         ]}
+], "stat": [
+    {"ID": 6, "name": "ArmorBoost", "desc": "Gain 6 armor {some kinda dynamic stat thing?}", "duration": 20, "hexColor": "#22FF55", "statChange": {"armor": 6}},
+    {"ID": 7, "name": "HealthBoost", "desc": "Gain 20 constitution {some kinda dynamic stat thing?}", "duration": 10, "hexColor": "#22FF55", "statChange": {"constitution": 20}}
 ]}

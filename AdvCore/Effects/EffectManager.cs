@@ -4,7 +4,9 @@
 
 using System;
 using System.Collections.Generic;
+using AdvCore.Builders;
 using Microsoft.Xna.Framework;
+using RenderingLibrary;
 
 namespace AdvCore.Effects;
 
@@ -29,6 +31,7 @@ public class EffectManager {
 
             if (!e.IsActive()) activeEffects.Remove(e.ID);
         }
+        Console.WriteLine("TOTALEFFECTS: " + activeEffects.Count);
     }
 
     public void AddEffect(Character caster, Effect e) {
@@ -38,5 +41,9 @@ public class EffectManager {
         }
         e.BeginEffect(currentTime, character, caster);
         activeEffects.Add(e.ID, e);
+    }
+    public void AddEffect(Character caster, int eid) {
+        Effect effect = new EffectBuilder().FromID(eid);
+        AddEffect(caster, effect);
     }
 }
