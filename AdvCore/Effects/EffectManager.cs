@@ -34,7 +34,15 @@ public class EffectManager {
         Console.WriteLine("TOTALEFFECTS: " + activeEffects.Count);
     }
 
+    private void UpdateEffectTriggers(Effect eTrigger) {
+        // some effects trigger events off other effects
+        foreach (Effect e in activeEffects.Values) {
+            e.UpdateEffectTriggers(eTrigger);
+        }
+    }
+
     public void AddEffect(Character caster, Effect e) {
+        UpdateEffectTriggers(e);
         if (activeEffects.ContainsKey(e.ID)) {
             activeEffects[e.ID].RefreshDuration(currentTime, e);
             return;

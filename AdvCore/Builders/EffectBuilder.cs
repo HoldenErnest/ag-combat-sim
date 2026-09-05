@@ -1,6 +1,6 @@
 // Holden Ernest - 8/17/2026 -- Builder for any Effect Init
 
-// IMPORTANT FOR INITIALIZATION:     only dict key holds the correct ID. 
+// TODO: this should probably just be static. The builder doesnt actually need to do anything (at least rn)
 
 using System;
 using System.Collections.Generic;
@@ -30,7 +30,7 @@ public class EffectBuilder {
             throw new Exception("Effect list has not been loaded before attempting to build");
         }
 
-        return dict[id];
+        return dict[id].Clone();
     }
     public static void LoadList() {
         // Loaded from Database.cs
@@ -55,13 +55,20 @@ public class EffectList {
 
     public void AddAllToDict(Dictionary<int, Effect> dict) {
         foreach (DamageEffect e in damage) {
-            dict.Add(e.ID, e);
+            AddToDict(dict, e.ID, e);
         }
         foreach (MultiEffect e in multi) {
-            dict.Add(e.ID, e);
+            AddToDict(dict, e.ID, e);
         }
         foreach (StatEffect e in stat) {
-            dict.Add(e.ID, e);
+            AddToDict(dict, e.ID, e);
         }
+    }
+    private void AddToDict(Dictionary<int, Effect> dict, int id, Effect e) {
+        if (dict.ContainsKey(e.ID)) {
+            Console.WriteLine("ERROR: duplicate effect ID");
+            return;
+        }
+        dict.Add(e.ID, e);
     }
 }

@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework;
 namespace AdvCore.Effects;
 
 
-public class Effect {
+public class Effect : Object {
 
     public int ID {get; init; }
     public string name {get; init; }
@@ -28,12 +28,14 @@ public class Effect {
     public string animName {get; init; }
     public string audioName {get; init; } // play on each proc
 
+
     private Color color;
     private bool isActive = false;
+    protected int procCount = 0;
 
     private TimeSpan finishTime;
     private TimeSpan nextProcTime;
-    private Character target, caster;
+    protected Character target, caster;
 
     public static readonly Effect NullEffect = new Effect(0);
 
@@ -41,8 +43,8 @@ public class Effect {
         ID = id;
         //color = ColorTranslator.FromHtml(hexColor);
     }
-    public Effect Clone() {
-        string json = JsonSerializer.Serialize(this); // TODO idk if needed - probvably
+    public virtual Effect Clone() {
+        string json = JsonSerializer.Serialize(this);
         return JsonSerializer.Deserialize<Effect>(json);
     }
 
@@ -78,7 +80,8 @@ public class Effect {
     }
     public void EndEffect() {
         // TEMP -----------------
-        Core.chat.SendDebugMessage("EFFECT " + name + " ENDED");
+        Core.chat.SendDebugMessage("EFFECT " + name + " ENDED with " + procCount + " procs");
+        procCount = 0;
         isActive = false;
     }
     public bool IsActive() {
@@ -100,9 +103,15 @@ public class Effect {
 
     }
 
+    public virtual void UpdateEffectTriggers(Effect triggerEffect) {
+        // Some effects trigger events from other effects (damage stacking)
+        // Do Nothing here
+    }
+
     protected virtual void Proc() {
         // Child Proc stuff
         RefreshProcInterval();
+        procCount++;
     }
 
     private void RefreshProcInterval() {
