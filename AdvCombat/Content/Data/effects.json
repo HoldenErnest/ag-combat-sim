@@ -1,11 +1,11 @@
 {"damage": [
-    {"ID": 0, "name": "UnknownDamage", "desc": "Unknown..", "duration": 0, "hexColor": "#FFFFFF", "baseDamage": 0, "type": "none"},
-    {"ID": 1, "name": "SolidDamage", "desc": "Instant solid damage", "duration": 0, "hexColor": "#FF5522", "baseDamage": 1, "type": "solid"},
-    {"ID": 2, "name": "LiquidDamage", "desc": "Instant liquid damage", "duration": 0, "hexColor": "#2255FF", "baseDamage": 1, "type": "liquid"},
-    {"ID": 3, "name": "GasDamage", "desc": "Instant gas damage", "duration": 0, "hexColor": "#22FF55", "baseDamage": 1, "type": "gas"},
-    {"ID": 4, "name": "Poison", "desc": "Basic poison over time", "duration": 10.0, "procInterval": 1.0, "hexColor": "#2255FF", "baseDamage": 5, "type": "liquid"},
-    {"ID": 8, "name": "Hemorrhage", "desc": "Stacking Bleed over time", "duration": 20.0, "procInterval": 1.0, "hexColor": "#FF1111", "baseDamage": 5, "type": "physical", "tags": ["bleed"], "stackTags": ["bleed"], "stackMultiplier": 1.0},
-    {"ID": 9, "name": "Cut", "desc": "Cut an opponent causing a bleed", "hexColor": "#FF1111", "baseDamage": 20, "type": "physical", "tags": ["bleed"]}
+    {"ID": 0, "name": "UnknownDamage", "desc": "Unknown..", "duration": 0, "hexColor": "#FFFFFF", "baseDamage": 0, "type": "NONE"},
+    {"ID": 1, "name": "SolidDamage", "desc": "Instant solid damage", "duration": 0, "hexColor": "#FF5522", "baseDamage": 1, "type": "SOLID"},
+    {"ID": 2, "name": "LiquidDamage", "desc": "Instant liquid damage", "duration": 0, "hexColor": "#2255FF", "baseDamage": 1, "type": "LIQUID"},
+    {"ID": 3, "name": "GasDamage", "desc": "Instant gas damage", "duration": 0, "hexColor": "#22FF55", "baseDamage": 1, "type": "GAS"},
+    {"ID": 4, "name": "Poison", "desc": "Basic poison over time", "duration": 10.0, "procInterval": 1.0, "hexColor": "#2255FF", "baseDamage": 5, "type": "LIQUID"},
+    {"ID": 8, "name": "Hemorrhage", "desc": "Stacking Bleed over time", "duration": 20.0, "procInterval": 1.0, "hexColor": "#FF1111", "baseDamage": 5, "type": "PHYSICAL", "tags": ["bleed"], "stackTags": ["bleed"], "stackMultiplier": 1.0},
+    {"ID": 9, "name": "Cut", "desc": "Cut an opponent causing a bleed", "hexColor": "#FF1111", "baseDamage": 20, "type": "PHYSICAL", "tags": ["bleed"]}
 ], "multi": [
     {"ID": 5, "name": "PoisonHit", "desc": "Initial poison damage + basic over time", "duration": 0, "hexColor": "#22FF55",
     "loadedEffects": [
@@ -13,6 +13,6 @@
         {"ID": 4, "effectMultiplier": 1.5}
         ]}
 ], "stat": [
-    {"ID": 6, "name": "ArmorBoost", "desc": "Gain 6 armor {some kinda dynamic stat thing?}", "duration": 20, "hexColor": "#22FF55", "statChange": {"armor": 6}},
-    {"ID": 7, "name": "HealthBoost", "desc": "Gain 20 constitution {some kinda dynamic stat thing?}", "duration": 10, "hexColor": "#22FF55", "statChange": {"constitution": 20}}
+    {"ID": 6, "name": "ArmorBoost", "desc": "Gain 6 armor {some kinda dynamic stat thing?}", "duration": 20, "hexColor": "#22FF55", "statChange": {"useAsMultipliers": false, "stats": {"armor": 6}}},
+    {"ID": 7, "name": "HealthBoost", "desc": "Gain 20 constitution {some kinda dynamic stat thing?}", "duration": 10, "hexColor": "#22FF55", "statChange": {"stats": {"con": 20}}}
 ]}

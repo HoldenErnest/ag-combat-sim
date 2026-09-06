@@ -2,6 +2,7 @@
 //                             Examples: poison, instant_physical_damage, MANY things
 
 using System;
+using System.Collections;
 using System.Linq;
 using System.Text.Json;
 using AdvCore.Chat;
@@ -12,7 +13,7 @@ namespace AdvCore.Effects;
 public class DamageEffect : Effect {
 
     public int baseDamage {get; init; } // base damage
-    public string type {get; init; }
+    public DamageType type {get; init; }
     public string[] stackTags {get; init; }
     public int maxStacks {get; init; } = 1;
     public float stackMultiplier {get; init; } = 1f; // stack damage is added to base (5base + (2stacks * 5base * 1.0mult) = 15 damage)
@@ -50,8 +51,21 @@ public class DamageEffect : Effect {
     }
 
     public override void UpdateEffectTriggers(Effect triggerEffect) {
-        stacks += stackTags.Intersect(triggerEffect.tags).Count();
+        if (stacks < maxStacks) {
+            stacks += stackTags.Intersect(triggerEffect.tags).Count();
+            if (stacks > maxStacks) stacks = maxStacks;
+        }
     }
 
 
+}
+
+public enum DamageType {
+    NONE,
+    TRUE,
+    PHYSICAL,
+    GAS,
+    LIQUID,
+    SOLID,
+    HEALING
 }

@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using AdvCore.UI.Components;
 using AdvCore.Effects;
+using System.Net.Security;
 
 namespace AdvCore;
 
@@ -20,7 +21,7 @@ public class Character : GameObject
     protected Inventory inventory;
     public StatsManager statsManager;
     private Skillbook skillbook;
-    private HealthManager healthManager;
+    private StatSheet statSheet;
     public UICharacterManager uiManager;
     public EffectManager effectManager;
 
@@ -45,7 +46,7 @@ public class Character : GameObject
         inventory = Inventory.FromSaveFile(id);
         inventory.SetupUser(this);
         uiManager = new UICharacterManager(this);
-        healthManager = new HealthManager(this);
+        statSheet = new StatSheet(this);
         effectManager = new EffectManager(this);
     }
 
@@ -82,8 +83,8 @@ public class Character : GameObject
 
 
     // START DAMAGE
-    public void TakeDamage(Character caster, int damage) {
-        healthManager.TakeDamage(caster, damage);
+    public void TakeDamage(Character caster, int damage, DamageType type) {
+        statSheet.TakeDamage(caster, damage, type);
     }
     // END DAMAGE
 }

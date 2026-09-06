@@ -86,16 +86,6 @@ public class PlayerController : Controller {
     private void UpdateExtraInputs(KeyboardStateExtended keysState) {
 
         UpdateEnterPress(keysState);
-
-        // RANDOM THINGS PROBABLY TO REMOVE;
-        if (keysState.WasKeyPressed(Keys.OemMinus)) {
-            character.TakeDamage(character, 10);
-            Core.chat.SendDebugMessage("DAMAGE SENT to player");
-        }
-        if (keysState.WasKeyPressed(Keys.OemPlus)) {
-            character.TakeDamage(character, -10);
-            Core.chat.SendDebugMessage("DAMAGE REMOVED from player");
-        }
     }
 
     public void UpdateVelocity(float deltaTime)

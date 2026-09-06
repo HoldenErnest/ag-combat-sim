@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using AdvCore;
 using AdvCore.Chat;
+using AdvCore.Effects;
 
 public class ChatCommands {
 
@@ -70,7 +71,7 @@ public class ChatCommands {
             return;
         }
 
-        target.TakeDamage(c, damage);
+        target.TakeDamage(c, damage, DamageType.TRUE);
     
     }
 

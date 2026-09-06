@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using AdvCore.Effects;
 
 namespace AdvCore.Builders;
@@ -38,6 +39,7 @@ public class EffectBuilder {
         string jsonString = File.ReadAllText(filePath);
 
         JsonSerializerOptions options = new JsonSerializerOptions {IncludeFields = true};
+        options.Converters.Add(new JsonStringEnumConverter());
         EffectList data = JsonSerializer.Deserialize<EffectList>(jsonString, options);
 
         if (data.damage is null) {
