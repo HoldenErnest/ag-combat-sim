@@ -6,7 +6,7 @@ using AdvCore.StatCore;
 namespace AdvCore.Effects;
 
 
-public class StatEffect : Effect{
+public class StatEffect : Effect, IStatMod {
 
     public StatModifier statChange {get; init; }
     

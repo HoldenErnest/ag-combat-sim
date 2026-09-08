@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text.Json;
 using AdvCore.Builders;
 using AdvCore.Data;
+using AdvCore.StatCore;
 using Microsoft.Xna.Framework;
 
 namespace AdvCore.Effects;

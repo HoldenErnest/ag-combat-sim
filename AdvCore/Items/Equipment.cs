@@ -10,8 +10,8 @@ using MonoGame.Extended.Graphics;
 
 namespace AdvCore.Items;
 
-public class Equipment : Item
-{
+public class Equipment : Item, IStatMod {
+
     public static readonly Equipment NullEquip = new Equipment(0);
     public static readonly Dictionary<string,int> gearIndex = new Dictionary<string,int> {
         ["weapon"] = 0,
@@ -33,6 +33,8 @@ public class Equipment : Item
     public string textureFile {get; init; }
     public float skillMultiplier {get; init; } = 1f;
 
+    //TODO : Equip/Dequip for stats at the least
+
     public Equipment(int id) : base(id)
     {
         
@@ -49,7 +51,6 @@ public class Equipment : Item
         }
         return gearIndex[gearType];
     }
-
 
     public override string ToString() {
         string s = $", gearType: {gearType}, skills: {skills}, stats: {stats}, textureFile: {textureFile}";

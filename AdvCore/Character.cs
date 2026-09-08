@@ -70,6 +70,7 @@ public class Character : GameObject
     public void LoadContent()
     {
         model.LoadContent();
+        statSheet.LoadContent();
     }
     public void Draw()
     {
