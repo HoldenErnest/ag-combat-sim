@@ -15,20 +15,7 @@ public class StatSheet {
 
     public int memory = 0;
 
-    private int constitution = 0;
-    private int strength = 0;
-    private int intelligence = 0;
-    private int evasion = 0;
-    private int speed = 0;
-
-    // CACHED PERCENTAGE CALCULATIONS
-    private int armor;
-    private int weight;
-    private float t_phys_resist;
-    private float t_gas_resist;
-    private float t_liquid_resist;
-    private float t_solid_resist;
-    private float t_reflect;
+    private StatModifier currentStats;
 
     private Dictionary<IStatMod, StatModifier> allMods = new();
 
@@ -45,16 +32,27 @@ public class StatSheet {
 
     // START STAT MODIFICATION
     public void AddStatMod(IStatMod parentModifier, StatModifier changes) {
-        // TODO::::
-        // IF multiplication, do the math to convert the properties of the StatModifier to addition. (100 base, 0.1* = -90))
 
-        // if key exists, add it to existing key
+        StatModifier additiveChanges = changes.AsAdditiveStats(currentStats);
+        
+        currentStats.AddStats(additiveChanges);
+        
+        // TODO: update allMods, if key exists, add to it.
+
+        if (allMods.ContainsKey(parentModifier)) {
+            // if there is a key for this event triggered stat effect, just add the changes to the existing one
+            // some effects may have "stacking stats" like more armor every hit, just update this existing one since ALL these stats should get removed together
+            allMods[parentModifier].AddStats(additiveChanges);
+        } else {
+            allMods[parentModifier] = additiveChanges;
+        }
     }
     public void RemoveStatMod(IStatMod parentModifier) {
         if (!allMods.ContainsKey(parentModifier)) return;
 
-        // TODO::::
-        // revert everything (subtract) from that modifier
+        currentStats.RemoveStats(allMods[parentModifier]);
+
+        allMods.Remove(parentModifier);
     }
     // END STAT MODIFICATION
 
