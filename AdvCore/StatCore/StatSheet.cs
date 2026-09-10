@@ -1,5 +1,5 @@
 // Holden Ernest - 8/16/2026 - This represets an object to store ALL Character Stats
-//                             Nothing here is stored or parsed. this just holds a cache of the ever changing stats for modification
+//                             Nothing here is saved or parsed. this just holds a cache of the ever changing stats for modification
 using System.Collections.Generic;
 using System.ComponentModel;
 using AdvCore.Effects;
@@ -23,11 +23,14 @@ public class StatSheet {
 
     public StatSheet(Character c) {
         character = c;
+        currentStats = new();
         healthManager = new HealthManager(c);
+        levelStats = new LevelStats();
     }
 
     public void LoadContent() {
         levelStats.LoadContent();
+        // TODO: update current stats based on level stats
     }
 
     // START STAT MODIFICATION
@@ -37,8 +40,6 @@ public class StatSheet {
         
         currentStats.AddStats(additiveChanges);
         
-        // TODO: update allMods, if key exists, add to it.
-
         if (allMods.ContainsKey(parentModifier)) {
             // if there is a key for this event triggered stat effect, just add the changes to the existing one
             // some effects may have "stacking stats" like more armor every hit, just update this existing one since ALL these stats should get removed together
@@ -55,6 +56,10 @@ public class StatSheet {
         allMods.Remove(parentModifier);
     }
     // END STAT MODIFICATION
+
+    public string GetStatsString() {
+        return currentStats.ToString();
+    }
 
 
     // START DAMAGE CALCULATIONS

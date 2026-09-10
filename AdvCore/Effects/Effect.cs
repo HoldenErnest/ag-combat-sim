@@ -23,6 +23,7 @@ public class Effect : Object {
     public float duration {get; init; } = 0f;
     public float procInterval {get; init; } = 0f;
     public float effectMultiplier {get; set; } = 1f;
+    public int maxProcs {get; set; } = 0; // 0 = infinity.
 
     public string iconName {get; init; }
     public string hexColor {get; init; }
@@ -45,6 +46,7 @@ public class Effect : Object {
         //color = ColorTranslator.FromHtml(hexColor);
     }
     public virtual Effect Clone() {
+        // IMPORTANT: all subclasses need this. (ideally this should be generic but whatever)
         string json = JsonSerializer.Serialize(this);
         return JsonSerializer.Deserialize<Effect>(json);
     }
@@ -60,7 +62,8 @@ public class Effect : Object {
 
         UpdateRefreshValues(newestEffect);
 
-        Proc(); 
+        if (procCount == 0 || procCount < maxProcs)
+            Proc();
 
         if (duration == 0) EndEffect();
     }
@@ -73,6 +76,11 @@ public class Effect : Object {
     }
 
     public void BeginEffect(TimeSpan currentTime, Character tar, Character cas) {
+        if (this == NullEffect) {
+            Console.WriteLine("ATTEMPTED TO START NULL EFFECT");
+            EndEffect();
+            return;
+        }
         target = tar;
         caster = cas;
         isActive = true;
@@ -84,6 +92,10 @@ public class Effect : Object {
         Core.chat.SendDebugMessage("EFFECT " + name + " ENDED with " + procCount + " procs");
         procCount = 0;
         isActive = false;
+        EndEffectEvent();
+    }
+    public virtual void EndEffectEvent() {
+        // nothing
     }
     public bool IsActive() {
         return isActive;
@@ -97,7 +109,8 @@ public class Effect : Object {
         TimeSpan currentTime = gameTime.TotalGameTime;
 
         if (nextProcTime < currentTime) {
-            Proc();
+            if (procCount == 0 || procCount < maxProcs)
+                Proc();
         }
 
         if (finishTime < currentTime) EndEffect();

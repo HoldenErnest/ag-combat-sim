@@ -12,14 +12,11 @@ public class LevelStats {
     public int evasion = 0;
     public int speed = 0;
 
-    public int memory = 0; // THIS CANNOT BE SPECCED
-
-
     public LevelStats() {
         
     }
 
     public void LoadContent() {
-        
+        // TODO: Load from json
     }
 }

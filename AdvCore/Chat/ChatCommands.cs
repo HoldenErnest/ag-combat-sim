@@ -45,6 +45,9 @@ public class ChatCommands {
             case "effect":
                 EffectCommand(c, args);
                 break;
+            case "stats":
+                StatsCommand(c, args);
+                break;
             default:
                 chat.SendDebugMessage("Invalid Command '" + args[0] + "'");
                 break;
@@ -92,6 +95,19 @@ public class ChatCommands {
         }
 
         target.effectManager.AddEffect(c, effectID);
+    
+    }
+
+    private void StatsCommand(Character c, string[] args) {
+        Character target;
+        if (args[1] == "self") {
+            target = c;
+        } else {
+            chat.SendCommandMessage("error: target not found '" + args[1] + "'");
+            return;
+        }
+
+        chat.SendCommandMessage(c.name + " stats -- " + target.statSheet.GetStatsString());
     
     }
     

@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using CsvHelper;
 using MonoGame.Extended.Particles.Modifiers;
 
 namespace AdvCore.StatCore;
@@ -11,7 +12,7 @@ namespace AdvCore.StatCore;
 public struct StatModifier {
 
     public StatModifier() {
-        
+        if (stats is null) stats = new();
     }
 
     private readonly HashSet<string> statTypes = new() {
@@ -30,7 +31,7 @@ public struct StatModifier {
 
     public bool useAsMultipliers = false;
 
-    public Dictionary<string, float> stats;
+    public Dictionary<string, float> stats {get;set;}
 
 
     private void ValidateStats() {
@@ -67,7 +68,8 @@ public struct StatModifier {
 
         foreach (string key in changes.stats.Keys) {
             float addVal = additiveChanges.stats.ContainsKey(key) ? additiveChanges.stats[key] : 0;
-            stats[key] += addVal;
+            float currVal = stats.ContainsKey(key) ? stats[key] : 0;
+            stats[key] = currVal + addVal;
         }
         
     }
@@ -81,6 +83,16 @@ public struct StatModifier {
             stats[key] -= addVal;
         }
         
+    }
+
+    public override string ToString() {
+        if (stats is null) return "Not Initialized";
+        if (stats.Count == 0 ) return "No Stats";
+        string s = "";
+        foreach (string key in stats.Keys) {
+            s += key + ": " + stats[key] + ", ";
+        }
+        return s;
     }
 
 }

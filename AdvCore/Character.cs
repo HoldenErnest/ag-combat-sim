@@ -21,7 +21,7 @@ public class Character : GameObject
     protected Inventory inventory;
     public StatsManager statsManager;
     private Skillbook skillbook;
-    private StatSheet statSheet;
+    public StatSheet statSheet;
     public UICharacterManager uiManager;
     public EffectManager effectManager;
 
@@ -81,7 +81,6 @@ public class Character : GameObject
         base.Destroy();
     }
     // END -IMPORTANT UPDATE FUNCTIONS
-
 
     // START DAMAGE
     public void TakeDamage(Character caster, int damage, DamageType type) {
