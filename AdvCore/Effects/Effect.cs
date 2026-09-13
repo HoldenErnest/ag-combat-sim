@@ -54,7 +54,7 @@ public class Effect : Object {
     public void RefreshDuration(TimeSpan currentTime, Effect newestEffect = null) {
         if (!isActive) {
             // just in case a refresh is called when its not active.
-            BeginEffect(currentTime, target, caster);
+            BeginEffect(currentTime, target, newestEffect.caster);
             return;
         }
         nextProcTime = currentTime;
@@ -70,6 +70,8 @@ public class Effect : Object {
 
     private void UpdateRefreshValues(Effect e) {
         if (e is null) return;
+
+        caster = e.caster;
         // TODO: UPDATE THE effectMultiplier to use the higher damage?????
         // the thing is two different casters mightve used the same effect on this character
         // so the damage might not be so cut and dry as the effectMultiplier

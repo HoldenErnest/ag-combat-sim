@@ -1,5 +1,6 @@
 // Holden Ernest - 8/16/2026 - This represets an object to store ALL Character Stats
 //                             Nothing here is saved or parsed. this just holds a cache of the ever changing stats for modification
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using AdvCore.Effects;
@@ -14,12 +15,12 @@ public class StatSheet {
     
 
     public int memory = 0;
+    public float moral = 0.5f; // these stats ARE savable. But they only change through story events so they are not included within the modifier
 
     private StatModifier currentStats;
 
     private Dictionary<IStatMod, StatModifier> allMods = new();
 
-    
 
     public StatSheet(Character c) {
         character = c;
@@ -65,18 +66,61 @@ public class StatSheet {
     // START DAMAGE CALCULATIONS
     public void TakeDamage(Character caster, int damage, DamageType type) {
 
+        caster.statSheet.CalcDamageCast(ref damage, type);
+        CalcDamageResist(ref damage, type);
+
         // TODO: calculate real damage then send that instead
         healthManager.TakeDamage(caster, damage);
     }
 
-    private void CalcDamageCast(ref int damage, Character caster, DamageType damageType) {
+    private void CalcDamageCast(ref int damage, DamageType damageType) {
         // update damage based on caster damage modifiers
+        switch (damageType) {
+            case DamageType.NONE:
+                damage = 0;
+                break;
+            case DamageType.TRUE:
+                break;
+            case DamageType.PHYSICAL:
+                damage = (int)MathF.Round(damage * currentStats.stats["str"]);
+                break; // TODO these all suck, figure out good formulas to convert
+            case DamageType.GAS:
+                damage = (int)MathF.Round(damage * currentStats.stats["int"]);
+                break;  //TODO technique stat?
+            case DamageType.LIQUID:
+                damage = (int)MathF.Round(damage * currentStats.stats["int"]);
+                break;
+            case DamageType.SOLID:
+                damage = (int)MathF.Round(damage * currentStats.stats["int"]);
+                break;
+        }
     }
 
     private void CalcDamageResist(ref int damage, DamageType damageType) {
         // update damage based on resists
-        if (damageType == DamageType.NONE) {damage = 0; return; }
-        if (damageType == DamageType.TRUE) return;
+        switch (damageType) {
+            case DamageType.NONE:
+                damage = 0;
+                break;
+            case DamageType.TRUE:
+                break;
+            case DamageType.PHYSICAL:
+                damage -= (int)(damage * currentStats.GetArmorResist()); // TODO determine percent resist from armor
+                break;
+            case DamageType.GAS:
+                damage -= (int)MathF.Round(damage * currentStats.stats["r_gas"]);
+                break;
+            case DamageType.LIQUID:
+                damage -= (int)MathF.Round(damage * currentStats.stats["r_liquid"]);
+                break;
+            case DamageType.SOLID:
+                damage -= (int)MathF.Round(damage * currentStats.stats["r_solid"]);
+                break;
+            case DamageType.HEALING:
+                // 0 morality = -50% healing ; 100 morality = +50% healing
+                damage = -(int)MathF.Max(1,damage * (moral + 0.5f));
+                break;
+        }
 
     }
     // END DAMAGE CALCULATIONS

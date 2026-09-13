@@ -32,6 +32,7 @@ public class DamageEffect : Effect {
     }
 
     protected override void Proc() {
+        target.statSheet.TakeDamage(caster, CalcPassedDamage(), type);
         Core.chat.SendDebugMessage(name + " procced, dealing " + CalcPassedDamage() + " to " + target.name);
         base.Proc();
     }

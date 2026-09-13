@@ -85,6 +85,14 @@ public struct StatModifier {
         
     }
 
+    // START DAMAGE MULTIPLIERS
+    public float GetArmorResist() {
+        // TODO find good functions for these.
+        return 1.0f;
+    }
+    // END DAMAGE MULTIPLIERS
+
+
     public override string ToString() {
         if (stats is null) return "Not Initialized";
         if (stats.Count == 0 ) return "No Stats";
