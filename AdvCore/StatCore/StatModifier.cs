@@ -21,13 +21,13 @@ public struct StatModifier {
         "int",
         "agi",
         "tec",
-        "evade",
-        "speed",
-        "weight",
-        "armor",
+        "eva",
+        "spd",
+        "wgt",
+        "amr",
         "r_gas",
-        "r_liquid",
-        "r_solid",
+        "r_lqd",
+        "r_sld",
         "reflect"
     };
 
@@ -86,14 +86,6 @@ public struct StatModifier {
         }
         
     }
-
-    // START DAMAGE MULTIPLIERS
-    public float GetArmorResist() {
-        // TODO find good functions for these.
-        return 1.0f;
-    }
-    // END DAMAGE MULTIPLIERS
-
 
     public override string ToString() {
         if (stats is null) return "Not Initialized";

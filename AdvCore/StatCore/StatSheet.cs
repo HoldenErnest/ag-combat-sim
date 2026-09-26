@@ -74,12 +74,18 @@ public class StatSheet {
 
     // START DAMAGE CALCULATIONS
     public void TakeDamage(Character caster, int damage, DamageType type) {
-
+        // caster applies their damage buffs
         caster.statSheet.CalcDamageCast(ref damage, type);
+        // target applies their damage resists
         CalcDamageResist(ref damage, type);
 
         // TODO: calculate real damage then send that instead
         healthManager.TakeDamage(caster, damage);
+    }
+
+    private int CalcMaxHealth() {
+        // TODO: health from level + health from CON
+        return 100;
     }
 
     private void CalcDamageCast(ref int damage, DamageType damageType) {
@@ -91,16 +97,19 @@ public class StatSheet {
             case DamageType.TRUE:
                 break;
             case DamageType.PHYSICAL:
-                damage = (int)MathF.Round(damage * currentStats.stats["str"]);
-                break; // TODO these all suck, figure out good formulas to convert
+                damage = (int)MathF.Round(damage * strMult * currentStats.stats["str"]);
+                break;
             case DamageType.GAS:
-                damage = (int)MathF.Round(damage * currentStats.stats["int"]);
-                break;  //TODO technique stat?
+                damage = (int)MathF.Round(damage * intMult * currentStats.stats["int"]);
+                break;
             case DamageType.LIQUID:
-                damage = (int)MathF.Round(damage * currentStats.stats["int"]);
+                damage = (int)MathF.Round(damage * intMult * currentStats.stats["int"]);
                 break;
             case DamageType.SOLID:
-                damage = (int)MathF.Round(damage * currentStats.stats["int"]);
+                damage = (int)MathF.Round(damage * intMult * currentStats.stats["int"]);
+                break;
+            default:
+                Console.WriteLine("Damage type not found.. " + damageType);
                 break;
         }
     }
@@ -114,20 +123,24 @@ public class StatSheet {
             case DamageType.TRUE:
                 break;
             case DamageType.PHYSICAL:
-                damage -= (int)(damage * currentStats.GetArmorResist()); // TODO determine percent resist from armor
+                float resist = currentStats.stats["amr"] / (currentStats.stats["amr"] + AmrMult);
+                damage -= (int)(damage * resist);
                 break;
             case DamageType.GAS:
-                damage -= (int)MathF.Round(damage * currentStats.stats["r_gas"]);
+                damage -= (int)(damage * currentStats.stats["r_gas"]);
                 break;
             case DamageType.LIQUID:
-                damage -= (int)MathF.Round(damage * currentStats.stats["r_liquid"]);
+                damage -= (int)(damage * currentStats.stats["r_lqd"]);
                 break;
             case DamageType.SOLID:
-                damage -= (int)MathF.Round(damage * currentStats.stats["r_solid"]);
+                damage -= (int)(damage * currentStats.stats["r_sld"]);
                 break;
             case DamageType.HEALING:
                 // 0 morality = -50% healing ; 100 morality = +50% healing
                 damage = -(int)MathF.Max(1,damage * (moral + 0.5f));
+                break;
+            default:
+                Console.WriteLine("Damage type not found.. " + damageType);
                 break;
         }
 
