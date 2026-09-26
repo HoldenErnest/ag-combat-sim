@@ -19,6 +19,8 @@ public struct StatModifier {
         "con",
         "str",
         "int",
+        "agi",
+        "tec",
         "evade",
         "speed",
         "weight",
@@ -29,7 +31,7 @@ public struct StatModifier {
         "reflect"
     };
 
-    public bool useAsMultipliers = false;
+    public bool useAsMultipliers = false; // TODO use enum "ADD", "MULT", "SET"
 
     public Dictionary<string, float> stats {get;set;}
 

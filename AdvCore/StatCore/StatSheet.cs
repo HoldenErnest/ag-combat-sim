@@ -9,6 +9,15 @@ namespace AdvCore.StatCore;
 
 public class StatSheet {
 
+    private readonly float conMult = 1.08f;
+    private readonly float strMult = 1.05f;
+    private readonly float strWgtMult = -2f; // reduces the integer weight directly.
+    private readonly float intMult = 1.05f;
+    private readonly float tecMult = -1.01f;
+    private readonly float agiEvaMult = 1.005f;
+    private readonly float agiSpdMult = 1.02f;
+    private readonly float AmrMult = 100f; // armor resist is calculated differently. a/(a+amult)
+
     private HealthManager healthManager;
     private Character character;
     private LevelStats levelStats;
