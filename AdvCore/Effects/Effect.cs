@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text.Json;
 using AdvCore.Builders;
 using AdvCore.Data;
+using AdvCore.GameCore;
 using AdvCore.StatCore;
 using Microsoft.Xna.Framework;
 
@@ -91,7 +92,7 @@ public class Effect : Object {
     }
     public void EndEffect() {
         // TEMP -----------------
-        Core.chat.SendDebugMessage("EFFECT " + name + " ENDED with " + procCount + " procs");
+        GameManager.chat.SendDebugMessage("EFFECT " + name + " ENDED with " + procCount + " procs");
         procCount = 0;
         isActive = false;
         EndEffectEvent();

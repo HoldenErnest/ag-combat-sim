@@ -22,7 +22,6 @@ public class Core : Game
     public static Core Instance => s_instance;
 
     public static CameraMod camera;
-    public static ChatManager chat;
     public static GumService GumUI => GumService.Default;
 
     /// <summary>

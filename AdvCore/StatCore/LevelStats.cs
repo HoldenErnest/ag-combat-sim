@@ -5,7 +5,7 @@ using System;
 
 namespace AdvCore.StatCore;
 
-public class LevelStats {
+public class LevelStats : IStatMod {
     
     // Level Speccing
     public int constitution = 0;
@@ -26,6 +26,7 @@ public class LevelStats {
 
     public void LoadContent() {
         // TODO: Load from json
+        setLevel(1);
     }
 
     public int getXpToNextLevel() {
@@ -34,7 +35,7 @@ public class LevelStats {
 
     // LEVEL/XP
     public void setLevel(int l) { // set current xp based on a specified wanted level.
-        xp = (int)Math.Pow(l - 1, 3);
+        totalXP = (int)Math.Pow(l - 1, 3);
         level = l;
         fitAllStats();
     }

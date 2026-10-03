@@ -13,14 +13,15 @@ using MonoGameAndGum.Renderables;
 using Gum.Forms.Controls;
 using AdvCore.UI.Components;
 using AdvCore.Chat;
+using AdvCore.GameCore;
 
 
 namespace AdvCombat;
 
 public class Game1 : Core
 {
-    private static Player player;
-    private static MainScreen mainScreen;
+
+    private static GameManager gameManager; // THIS SHOULD be instanced behind a menu button at somepoint
 
     public Game1() : base("Adventure Combat", 1280, 720, false)
     {
@@ -30,16 +31,13 @@ public class Game1 : Core
     protected override void Initialize()
     {
         GumUI.Initialize(this, "GumUI/AdvUI.gumx");
+        gameManager = new GameManager();
 
         base.Initialize();
 
         ShapeRenderer.Self.Initialize(); // Recommended, optional: shape fill/gradient/shadow
         Gum.Wireframe.CustomSetPropertyOnRenderable.InMemoryFontCreator =
             new KernSmith.Gum.KernSmithFontCreator(GraphicsDevice);
-
-        mainScreen = new MainScreen();
-        chat = new ChatManager(mainScreen.ChatInterfaceInstance);
-        GumUI.Root.AddChild(mainScreen);
 
     }
 
@@ -49,8 +47,7 @@ public class Game1 : Core
 
         // content loading happens AFTER all init
         Database.LoadLists();
-        player = new Player();
-        player.LoadContent();
+        gameManager.LoadContent();
 
         base.LoadContent();
     }
@@ -60,7 +57,7 @@ public class Game1 : Core
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
-        player.Update(gameTime);
+        gameManager.Update(gameTime);
 
         camera.Update(gameTime);
         GumUI.Update(gameTime);
@@ -82,7 +79,7 @@ public class Game1 : Core
 
         SpriteBatch.Begin(transformMatrix: transformMatrix, samplerState: SamplerState.PointClamp);
         
-        player.Draw();
+        gameManager.Draw(gameTime);
 
         RectangleF rect = new RectangleF(0,0,16,16);
         SpriteBatch.DrawRectangle(rect, Color.White);

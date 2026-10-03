@@ -9,13 +9,14 @@ namespace AdvCore.StatCore;
 
 public class StatSheet {
 
-    private readonly float conMult = 1.08f;
-    private readonly float strMult = 1.05f;
+    private readonly float conMult = 0.08f;
+    private readonly float conLevelMult = 0.03f; // base hp increase for 
+    private readonly float strMult = 0.05f;
     private readonly float strWgtMult = -2f; // reduces the integer weight directly.
-    private readonly float intMult = 1.05f;
-    private readonly float tecMult = -1.01f;
-    private readonly float agiEvaMult = 1.005f;
-    private readonly float agiSpdMult = 1.02f;
+    private readonly float intMult = 0.05f;
+    private readonly float tecMult = -0.01f;
+    private readonly float agiEvaMult = 0.005f;
+    private readonly float agiSpdMult = 0.02f;
     private readonly float AmrMult = 100f; // armor resist is calculated differently. a/(a+amult)
 
     private HealthManager healthManager;
@@ -57,19 +58,28 @@ public class StatSheet {
         } else {
             allMods[parentModifier] = additiveChanges;
         }
+        PostStatChange(changes);
     }
     public void RemoveStatMod(IStatMod parentModifier) {
         if (!allMods.ContainsKey(parentModifier)) return;
 
         currentStats.RemoveStats(allMods[parentModifier]);
 
+        PostStatChange(allMods[parentModifier]);
         allMods.Remove(parentModifier);
+    }
+    private void PostStatChange(StatModifier changedStats) {
+        // these could be added or removed, the actual values mean nothing.
+        if (changedStats.stats.ContainsKey("con")) {
+            healthManager.UpdateMaxHealth(CalcMaxHealth());
+        }
     }
     // END STAT MODIFICATION
 
     public string GetStatsString() {
         return currentStats.ToString();
     }
+
 
 
     // START DAMAGE CALCULATIONS
@@ -85,7 +95,10 @@ public class StatSheet {
 
     private int CalcMaxHealth() {
         // TODO: health from level + health from CON
-        return 100;
+        int baseHP = 100;
+        int lvl = levelStats.getLevel();
+        baseHP += (int)(baseHP * conLevelMult * (lvl == 0 ? 1 : lvl));
+        return baseHP + (int)(baseHP * conMult * currentStats.stats["con"]);
     }
 
     private void CalcDamageCast(ref int damage, DamageType damageType) {
@@ -97,16 +110,16 @@ public class StatSheet {
             case DamageType.TRUE:
                 break;
             case DamageType.PHYSICAL:
-                damage = (int)MathF.Round(damage * strMult * currentStats.stats["str"]);
+                damage += (int)MathF.Round(damage * strMult * currentStats.stats["str"]);
                 break;
             case DamageType.GAS:
-                damage = (int)MathF.Round(damage * intMult * currentStats.stats["int"]);
+                damage += (int)MathF.Round(damage * intMult * currentStats.stats["int"]);
                 break;
             case DamageType.LIQUID:
-                damage = (int)MathF.Round(damage * intMult * currentStats.stats["int"]);
+                damage += (int)MathF.Round(damage * intMult * currentStats.stats["int"]);
                 break;
             case DamageType.SOLID:
-                damage = (int)MathF.Round(damage * intMult * currentStats.stats["int"]);
+                damage += (int)MathF.Round(damage * intMult * currentStats.stats["int"]);
                 break;
             default:
                 Console.WriteLine("Damage type not found.. " + damageType);
@@ -124,7 +137,7 @@ public class StatSheet {
                 break;
             case DamageType.PHYSICAL:
                 float resist = currentStats.stats["amr"] / (currentStats.stats["amr"] + AmrMult);
-                damage -= (int)(damage * resist);
+                damage -= (int)(damage * resist); // 100(d) -= 100(d) * (0.5|0.01)
                 break;
             case DamageType.GAS:
                 damage -= (int)(damage * currentStats.stats["r_gas"]);

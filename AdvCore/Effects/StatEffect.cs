@@ -3,6 +3,7 @@
 
 using System;
 using System.Text.Json;
+using AdvCore.GameCore;
 using AdvCore.StatCore;
 
 namespace AdvCore.Effects;
@@ -22,13 +23,13 @@ public class StatEffect : Effect, IStatMod {
     }
 
     protected override void Proc() {
-        Core.chat.SendDebugMessage(name + ": procced, adding " + statChange + " to " + target.name);
+        GameManager.chat.SendDebugMessage(name + ": procced, adding " + statChange + " to " + target.name);
         target.statSheet.AddStatMod(this, statChange);
         base.Proc();
     }
 
     public override void EndEffectEvent() {
-        Core.chat.SendDebugMessage(name + ": removing ALL stats I hope from " + target.name);
+        GameManager.chat.SendDebugMessage(name + ": removing ALL stats I hope from " + target.name);
         target.statSheet.RemoveStatMod(this);
     }
 }

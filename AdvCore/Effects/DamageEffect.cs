@@ -5,7 +5,7 @@ using System;
 using System.Collections;
 using System.Linq;
 using System.Text.Json;
-using AdvCore.Chat;
+using AdvCore.GameCore;
 
 namespace AdvCore.Effects;
 
@@ -33,7 +33,7 @@ public class DamageEffect : Effect {
 
     protected override void Proc() {
         target.statSheet.TakeDamage(caster, CalcPassedDamage(), type);
-        Core.chat.SendDebugMessage(name + " procced, dealing " + CalcPassedDamage() + " to " + target.name);
+        GameManager.chat.SendDebugMessage(name + " procced, dealing " + CalcPassedDamage() + " to " + target.name);
         base.Proc();
     }
 

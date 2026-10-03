@@ -1,8 +1,10 @@
 // Holden Ernest 8/15/2026 -- manages all input for the game. - a static instance of this class is created and updated from the game initialization
+//                            I should specify that UI input is seperate.
 using System;
 using System.IO;
 using System.Security.Cryptography;
 using AdvCore.Chat;
+using AdvCore.GameCore;
 using AdvCore.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -16,11 +18,13 @@ namespace AdvCore.Input;
 public class PlayerController : Controller {
 
     private Vector2 inputDir;
+    private bool disableControls = false;
 
     public PlayerController(Character c) : base(c) {
     }
     
     public override void Update(GameTime gameTime) {
+
         KeyboardExtended.Update();
         KeyboardStateExtended keyboardState = KeyboardExtended.GetState();
         MouseExtended.Update();
@@ -29,6 +33,7 @@ public class PlayerController : Controller {
         //Console.WriteLine("mousePOS: " + mouseState.Position.ToString());
         float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
+        UpdateControlsEnabled();
         UpdateInputs(keyboardState);
         UpdateExtraInputs(keyboardState);
 
@@ -48,24 +53,28 @@ public class PlayerController : Controller {
     {
         Vector2 prevInputDir = inputDir;
         inputDir = Vector2.Zero;
-        
-        if (keysState.IsKeyDown(Keys.W)) {
-            inputDir -= Vector2.UnitY;
-        }
-        if (keysState.IsKeyDown(Keys.S)) {
-            inputDir += Vector2.UnitY;
-        }
-        if (keysState.IsKeyDown(Keys.A)) {
-            inputDir -= Vector2.UnitX;
-        }
-        if (keysState.IsKeyDown(Keys.D)) {
-            inputDir += Vector2.UnitX;
+        if (!disableControls) {
+            if (keysState.IsKeyDown(Keys.W)) {
+                inputDir -= Vector2.UnitY;
+            }
+            if (keysState.IsKeyDown(Keys.S)) {
+                inputDir += Vector2.UnitY;
+            }
+            if (keysState.IsKeyDown(Keys.A)) {
+                inputDir -= Vector2.UnitX;
+            }
+            if (keysState.IsKeyDown(Keys.D)) {
+                inputDir += Vector2.UnitX;
+            }
+
+            if (inputDir != Vector2.Zero) {
+                inputDir = Vector2.Normalize(inputDir);
+            }
         }
 
-        if (inputDir != Vector2.Zero) {
-            inputDir = Vector2.Normalize(inputDir);
-        }
-
+        UpdatePlayerModel(prevInputDir);
+    }
+    private void UpdatePlayerModel(Vector2 prevInputDir) {
         // TODO: move this out of this method for AIControllers
         if (prevInputDir != inputDir) {
             character.model.UpdateMovement(prevInputDir, inputDir);
@@ -76,7 +85,7 @@ public class PlayerController : Controller {
         // The enter key can be used in different ways depending on context.
         if (!keysState.WasKeyPressed(Keys.Enter)) return;
 
-        ChatManager chat = Core.chat;
+        ChatManager chat = GameManager.chat;
 
         if (chat.EditorFocused()) {
             chat.SendPlayerMessage(character);
@@ -98,6 +107,24 @@ public class PlayerController : Controller {
         } else {
             velocity = Vector2.Lerp(velocity, Vector2.Zero, deccel * deltaTime);
         }
+    }
+
+    private void UpdateControlsEnabled() {
+        ChatManager chat = GameManager.chat;
+
+        if (chat.EditorFocused()) {
+            disable();
+            return;
+        }
+
+        enable();
+    }
+
+    private void disable() {
+        disableControls = true;
+    }
+    private void enable() {
+        disableControls = false;
     }
 
 }
