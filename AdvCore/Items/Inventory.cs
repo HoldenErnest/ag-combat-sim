@@ -4,13 +4,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using AdvCore.Builders;
 
 namespace AdvCore.Items;
 
-public class Inventory
-{
-
+public class Inventory {
+    
     private EquipManager equipManager;
     private List<Item> items = new List<Item>();
     // TODO some kind of inventory UI

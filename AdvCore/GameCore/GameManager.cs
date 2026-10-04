@@ -17,6 +17,8 @@ public class GameManager {
 
     // game object array for all entities.
 
+    private Character[] savedCharcters;
+
     public GameManager() {
         
     }

@@ -10,7 +10,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using AdvCore.UI.Components;
 using AdvCore.Effects;
-using System.Net.Security;
 
 namespace AdvCore;
 
@@ -19,17 +18,17 @@ public class Character : GameObject
     public CharacterModel model;
     protected Controller controls;
     protected Inventory inventory;
-    public StatsManager statsManager;
     private Skillbook skillbook;
     public StatSheet statSheet;
     public UICharacterManager uiManager;
     public EffectManager effectManager;
 
     public readonly int ID;
-    private bool savable;
+    public enum saveState {NONE, FULL, PARTIAL}; // different save configurations can be used. Full is obvious, save everything I can and never remove it. I'm sure there will be other reasons to save in a unique way
     public string name {get; init; }
     public string title {get; init; }
     public string desc {get; init; }
+    public Team team {get; init; }
 
     public static Character FromSaveFile(int id) {
         // generate a new Character loaded with its save state.

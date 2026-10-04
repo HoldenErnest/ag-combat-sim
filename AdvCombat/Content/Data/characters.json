@@ -1,0 +1,21 @@
+{"main": [
+    {"ID": 0,
+    "saveState": "FULL",
+    "name": "Unknown",
+    "title": "The Unknown",
+    "desc": "Unknown..",
+    "team": {"teams": [0]},
+    "StatSheet": {
+        "memory": 0,
+        "moral": 0.5,
+        "levelStats": {
+            "constitution": 0,
+            "strength": 0,
+            "intelligence": 0,
+            "agility": 0,
+            "technique": 0,
+            "totalXP": 0,
+            "attrPoints": 0
+        }}
+    }
+]}

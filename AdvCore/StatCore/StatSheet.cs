@@ -21,8 +21,8 @@ public class StatSheet {
 
     private HealthManager healthManager;
     private Character character;
-    private LevelStats levelStats;
-    
+
+    public LevelStats levelStats;
 
     public int memory = 0;
     public float moral = 0.5f; // these stats ARE savable. But they only change through story events so they are not included within the modifier
